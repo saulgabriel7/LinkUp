@@ -38,3 +38,11 @@ fastlane/test_output/
 node_modules/
 dist-ssr/
 docs/
+
+# Android client (separate repository)
+linkup-android/
+
+# Tools and binaries
+tools/bin/
+tools/xcodegen.zip
+*.zip
