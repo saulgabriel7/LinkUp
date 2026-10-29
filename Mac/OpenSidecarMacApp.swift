@@ -37,13 +37,13 @@ struct OpenSidecarMacApp: App {
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    // Sparkle's standard updater. `startingUpdater: true` boots the updater
-    // immediately so scheduled background checks (SUEnableAutomaticChecks)
-    // run; the menu item drives manual "Check for Updates…". Held for the
-    // app's lifetime here so every window (menu bar + control window) shares
-    // one updater instance.
+    // Sparkle's standard updater, intentionally NOT started: LinkUp has no
+    // appcast feed or EdDSA key yet, so "Check for Updates…" stays disabled.
+    // To enable updates, set SUFeedURL/SUPublicEDKey in project.yml and flip
+    // `startingUpdater` to true. Held for the app's lifetime here so every
+    // window (menu bar + control window) shares one updater instance.
     let updater = SPUStandardUpdaterController(
-        startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+        startingUpdater: false, updaterDelegate: nil, userDriverDelegate: nil)
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Hand the updater to the control window, which is built outside the

@@ -7,9 +7,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  # Lets the build-mac job dispatch the Pages deploy after committing the
-  # Sparkle appcast (a GITHUB_TOKEN push won't auto-trigger pages.yml).
-  actions: write
 
 # Serialize release runs on the same ref so two quick merges can't race two
 # uploads. Never cancel an in-flight run — it may be mid-upload to TestFlight.
@@ -72,11 +69,6 @@ jobs:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
     runs-on: macos-26
-    # The `secrets` context can't be referenced in a step-level `if:` (it's a
-    # workflow-validation error). Map the Sparkle key to a job env var so the
-    # appcast step can guard on its presence via the allowed `env` context.
-    env:
-      SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
     steps:
       - uses: actions/checkout@v6
 
@@ -122,79 +114,3 @@ jobs:
           gh release upload "${{ needs.release-please.outputs.tag_name }}" \
             build/export/OpenDisplay.dmg \
             build/export/OpenDisplayReceiver.dmg
-
-      # --- Sparkle auto-update: generate + publish the appcasts (issue #52) ---
-      # Builds appcast.xml (sender) and appcast-receiver.xml (receiver app)
-      # from the just-released, notarized DMGs and commits them to public/ on
-      # main. One feed per app: each bundle has its own SUFeedURL, and a mixed
-      # feed would offer the wrong app's update. The Pages workflow (pages.yml) triggers
-      # on public/** changes, copies public/ into docs/ via the Vite build, and
-      # deploys it — so https://opendisplay.app/appcast.xml (the SUFeedURL in
-      # project.yml) resolves.
-      #
-      # No-ops gracefully until the maintainer adds the SPARKLE_PRIVATE_KEY
-      # secret (the EdDSA private key from Sparkle's `generate_keys`), so this
-      # never hard-fails a release before auto-update is switched on.
-      - name: Publish Sparkle appcast to GitHub Pages
-        if: ${{ env.SPARKLE_PRIVATE_KEY != '' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ needs.release-please.outputs.tag_name }}
-          # Sparkle release that ships the generate_appcast / sign_update tools.
-          SPARKLE_TOOLS_VERSION: "2.6.4"
-        run: |
-          set -euo pipefail
-
-          # Sparkle's CLI tools (generate_appcast, sign_update) ship in the
-          # official release tarball — download the matching version.
-          curl -fsSL -o /tmp/sparkle.tar.xz \
-            "https://github.com/sparkle-project/Sparkle/releases/download/${SPARKLE_TOOLS_VERSION}/Sparkle-${SPARKLE_TOOLS_VERSION}.tar.xz"
-          mkdir -p /tmp/sparkle && tar -xf /tmp/sparkle.tar.xz -C /tmp/sparkle
-          GEN_APPCAST="$(find /tmp/sparkle -name generate_appcast -type f | head -1)"
-          echo "Using $GEN_APPCAST"
-
-          # The EdDSA private key (CI secret) → file for --ed-key-file.
-          printf '%s' "$SPARKLE_PRIVATE_KEY" > /tmp/sparkle_ed_priv
-
-          # generate_appcast wants a directory of update archives per feed.
-          # Point the download links at the GitHub Release assets where the
-          # DMGs live.
-          mkdir -p /tmp/appcast-updates /tmp/appcast-receiver-updates
-          cp build/export/OpenDisplay.dmg /tmp/appcast-updates/
-          cp build/export/OpenDisplayReceiver.dmg /tmp/appcast-receiver-updates/
-
-          "$GEN_APPCAST" \
-            --ed-key-file /tmp/sparkle_ed_priv \
-            --download-url-prefix "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG_NAME}/" \
-            -o /tmp/appcast-updates/appcast.xml \
-            /tmp/appcast-updates
-          "$GEN_APPCAST" \
-            --ed-key-file /tmp/sparkle_ed_priv \
-            --download-url-prefix "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG_NAME}/" \
-            -o /tmp/appcast-receiver-updates/appcast-receiver.xml \
-            /tmp/appcast-receiver-updates
-
-          # Commit the feed into public/ on main; Pages picks it up from there.
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          git checkout main
-          mkdir -p public
-          cp /tmp/appcast-updates/appcast.xml public/appcast.xml
-          cp /tmp/appcast-receiver-updates/appcast-receiver.xml public/appcast-receiver.xml
-          rm -f /tmp/sparkle_ed_priv
-          git add public/appcast.xml public/appcast-receiver.xml
-          # Compare the STAGED files: plain `git diff` ignores untracked files,
-          # so the first-ever appcast (a brand-new public/appcast.xml) looked
-          # "unchanged" and was never committed. `--cached` sees the staged add.
-          if ! git diff --cached --quiet -- public/appcast.xml public/appcast-receiver.xml; then
-            git commit -m "chore(release): publish Sparkle appcasts for ${TAG_NAME} [skip ci]"
-            git push origin main
-            # Pushes made with GITHUB_TOKEN do NOT trigger other workflows
-            # (GitHub blocks recursive runs), so kick the Pages deploy
-            # explicitly via its workflow_dispatch entry point.
-            gh workflow run pages.yml --ref main || \
-              echo "could not dispatch pages.yml — deploy it manually"
-          else
-            echo "appcast.xml unchanged — nothing to publish"
-          fi

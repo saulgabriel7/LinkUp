@@ -60,18 +60,9 @@ targets:
         NSLocalNetworkUsageDescription: LinkUp connects to your iPad or iPhone over the local network in WiFi mode.
         NSBonjourServices: ["_opensidecar._tcp"]
         LSApplicationCategoryType: public.app-category.utilities
-        # --- Sparkle auto-update (issue #52) ---
-        # The appcast feed is hosted on the landing-page site at the custom
-        # domain. The release workflow publishes appcast.xml so this URL
-        # resolves — see .github/workflows/release.yml.
-        SUFeedURL: https://opendisplay.app/appcast.xml
-        # Public EdDSA key from Sparkle's `generate_keys`. The matching private
-        # key lives only as the `SPARKLE_PRIVATE_KEY` GitHub Actions secret
-        # (used to sign the appcast in CI) and is never committed. Sparkle
-        # verifies update signatures against this public key before installing.
-        SUPublicEDKey: rYxlIePmwzi2bRo/qIsuY2TqTnQ34li2gQhJpGBiumw=
-        # Check for updates automatically in the background on a schedule.
-        SUEnableAutomaticChecks: true
+        # Sparkle auto-update is disabled until LinkUp has its own appcast
+        # feed and EdDSA keys: add SUFeedURL, SUPublicEDKey and
+        # SUEnableAutomaticChecks here and start the updater in the app.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac
@@ -118,11 +109,7 @@ targets:
         NSLocalNetworkUsageDescription: OpenDisplay Receiver advertises itself on the local network so another Mac can connect and use this Mac as a display.
         NSBonjourServices: ["_opensidecar._tcp"]
         LSApplicationCategoryType: public.app-category.utilities
-        # Own Sparkle feed (separate DMG, same signing key); published by
-        # release.yml next to the sender's appcast.
-        SUFeedURL: https://opendisplay.app/appcast-receiver.xml
-        SUPublicEDKey: rYxlIePmwzi2bRo/qIsuY2TqTnQ34li2gQhJpGBiumw=
-        SUEnableAutomaticChecks: true
+        # Sparkle auto-update disabled (see the sender target above).
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac.receiver
