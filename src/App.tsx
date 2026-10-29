@@ -3,12 +3,11 @@ import { AnimatePresence, motion } from "motion/react"
 import TextRotate from "./components/TextRotate"
 
 const HERO_WORDS = [
-  "iPhone",
-  "girlfriend's iPad",
-  "mother's iPad",
-  "partner's iPad",
-  "kid's iPad",
-  "dusty iPad",
+  "Android tablet",
+  "old tablet",
+  "spare tablet",
+  "dusty tablet",
+  "kid's tablet",
   "iPad",
 ]
 
@@ -179,11 +178,12 @@ export default function App() {
           </h1>
           <p className="tagline">
             A free, open-source alternative to Apple Sidecar, Duet Display and Luna Display.
-            Use your iPhone and iPad as a second — and even a third — screen for your Mac.
-            A true extended display, not a mirror: USB or WiFi, Retina-sharp, with touch and
-            scroll. No subscription. No dongle. No account.
+            Use your Android tablet as a second screen for your Mac — iPhone and iPad work
+            too. A true extended display, not a mirror: WiFi or USB, low latency, with touch
+            input. No subscription. No dongle. No account.
           </p>
-          <p className="meta">macOS 14+ &nbsp;·&nbsp; iPadOS 16+ &nbsp;·&nbsp; iOS 16+ &nbsp;·&nbsp; Receiver Mac 12+ &nbsp;·&nbsp; GPL-3.0</p>
+          <p className="meta">macOS 14+ &nbsp;·&nbsp; Android &nbsp;·&nbsp; iPadOS 16+ &nbsp;·&nbsp; iOS 16+ &nbsp;·&nbsp; Receiver Mac 12+ &nbsp;·&nbsp; GPL-3.0</p>
+          <p className="note">Early development: USB on Android currently needs <code>adb</code>; plug-and-play USB is in progress.</p>
         </div>
       </section>
 
@@ -229,11 +229,14 @@ export default function App() {
               const iosStep = (
                 <div key="ios">
                   <div className="dl-head">
-                    <span className="step">Step {iosFirst ? 1 : 2}</span> On your iPhone &amp; iPad
+                    <span className="step">Step {iosFirst ? 1 : 2}</span> On your tablet or phone
                   </div>
                   <p className="dl-sub">The receiver — displays the stream and sends touch back.</p>
                   <p className="note">
-                    The iPhone &amp; iPad app isn't on the App Store yet.{" "}
+                    <strong>Android:</strong> the receiver is a separate project and is not built from this repository.
+                  </p>
+                  <p className="note">
+                    <strong>iPhone &amp; iPad:</strong> the app isn't on the App Store yet.{" "}
                     <a href="https://github.com/saulgabriel7/LinkUp#quick-start">
                       Compile it from source ↗
                     </a>{" "}
@@ -315,6 +318,12 @@ export default function App() {
           <p className="eyebrow">FAQ</p>
           <h2>Questions, answered.</h2>
           <div className="faq">
+            <details>
+              <summary>Does it work with Android?</summary>
+              <p>Yes — that is the focus of LinkUp. The Android receiver is a separate project that speaks the
+              same protocol as the iOS receiver. Over WiFi it works out of the box; over USB it currently needs
+              <code>adb forward tcp:9000 tcp:9000</code> until plug-and-play USB lands.</p>
+            </details>
             <details>
               <summary>How does it actually work?</summary>
               <p>The Mac creates a virtual display with the private <code>CGVirtualDisplay</code> API
@@ -418,7 +427,8 @@ export default function App() {
           </div>
           <p className="fine">LinkUp — use your iPhone or iPad as a second monitor for your Mac. Free forever.</p>
           <p className="fine">
-            Derived from <a href="https://github.com/peetzweg/opendisplay">OpenDisplay</a> by Philip Poloczek, licensed under GPL-3.0.
+            Derived from <a href="https://github.com/peetzweg/opendisplay">OpenDisplay</a> by Philip Poloczek, licensed under GPL-3.0. The Android receiver is based on{" "}
+            <a href="https://github.com/josepacelli/opendisplay-android">opendisplay-android</a>.
           </p>
         </div>
       </footer>

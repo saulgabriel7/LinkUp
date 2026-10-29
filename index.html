@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LinkUp — Turn your spare Apple devices into second monitors for your Mac (free &amp; open source)</title>
-  <meta name="description" content="LinkUp is a free, open-source alternative to Apple Sidecar and Duet Display. Turn your spare Apple devices — iPhone and iPad today, Macs on the roadmap — into true extended displays for your Mac over USB or WiFi. Retina-sharp, low latency, with touch and scroll input. No subscription, no dongle, no account." />
-  <meta name="keywords" content="iPhone second monitor, iPad external display, Sidecar alternative, Duet Display alternative, free second screen Mac, open source, virtual display macOS, USB second display, use iPhone as monitor" />
+  <title>LinkUp — Use your Android tablet as a second monitor for your Mac (free &amp; open source)</title>
+  <meta name="description" content="LinkUp is a free, open-source alternative to Apple Sidecar and Duet Display. Use your Android tablet — or an iPhone, iPad or spare Mac — as a true extended display for your Mac over WiFi or USB. Low latency, with touch input. No subscription, no dongle, no account." />
+  <meta name="keywords" content="Android tablet second monitor Mac, iPhone second monitor, iPad external display, Sidecar alternative, Duet Display alternative, free second screen Mac, open source, virtual display macOS, USB second display, use iPhone as monitor" />
   <link rel="icon" type="image/png" href="./icon-256.png" />
   <link rel="canonical" href="https://saulgabriel7.github.io/LinkUp/" />
 
@@ -14,7 +14,7 @@
   <meta property="og:site_name" content="LinkUp" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="LinkUp — free, open-source Sidecar/Duet alternative" />
-  <meta property="og:description" content="Use your iPhone or iPad as a second monitor for your Mac. A true extended display over USB or WiFi — Retina-sharp, low latency, with touch and scroll. No subscription, no dongle, no account." />
+  <meta property="og:description" content="Use your Android tablet as a second monitor for your Mac. A true extended display over WiFi or USB — low latency, with touch input. No subscription, no dongle, no account." />
   <meta property="og:url" content="https://saulgabriel7.github.io/LinkUp/" />
   <meta property="og:image" content="https://saulgabriel7.github.io/LinkUp/og.png" />
   <meta property="og:image:type" content="image/png" />
@@ -32,7 +32,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "LinkUp",
-    "operatingSystem": "macOS 14+, iPadOS 16+, iOS 16+",
+    "operatingSystem": "macOS 14+, Android, iPadOS 16+, iOS 16+",
     "applicationCategory": "UtilitiesApplication",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "description": "Free, open-source alternative to Apple Sidecar, Duet Display and Luna Display: use your iPhone or iPad as a true second monitor (extended display, not a mirror) for your Mac over USB or WiFi — Retina-sharp, low latency, with touch and scroll input. No subscription, no dongle, no account.",
@@ -67,6 +67,14 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does it work with Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — that is the focus of LinkUp. The Android receiver is a separate project that speaks the same protocol as the iOS receiver. Over WiFi it works out of the box; over USB it currently needs adb forward tcp:9000 tcp:9000 until plug-and-play USB lands."
+        }
+      },
       {
         "@type": "Question",
         "name": "How does it actually work?",

@@ -4,12 +4,16 @@
 
 # LinkUp
 
-**Turn your spare Apple devices into second monitors for your Mac — free, open source, no subscription.**
+**Use your Android tablet as a second monitor for your Mac over USB-C — free and open source.**
 
-iPhone, iPad, and spare Macs. A self-hosted
-alternative to Apple Sidecar, Duet Display, and Luna Display: true extended
-display (not just mirroring), Retina-sharp, over USB or WiFi, with touch and
-scroll input.
+A true extended display (not just mirroring) for macOS: Retina-sharp,
+low-latency H.264, with touch input. The Mac side is built on top of
+[OpenDisplay](https://github.com/peetzweg/opendisplay); the receiver runs on
+**Android**, and the inherited **iPhone / iPad** receiver still works.
+
+> **Status: early development.** The pipeline works end to end over WiFi and
+> over USB through `adb forward`. Plug-and-play USB (no terminal) is still in
+> progress, so for now USB on Android needs `adb`.
 
 [Website](https://saulgabriel7.github.io/LinkUp/) · [Quick start](#quick-start) · [How it works](#how-it-works) · [FAQ](#faq) · [Contributing](#contributing)
 
@@ -19,40 +23,40 @@ scroll input.
 
 ## Why LinkUp exists
 
-Turning an iPhone or iPad into an external display for a Mac is a solved
+Turning a spare tablet into an external display for a Mac is a solved
 problem — but every existing option has a catch:
 
-- **Apple Sidecar** is free but requires both devices on the *same Apple ID*,
-  doesn't support iPhones at all, and only works on supported hardware pairs.
+- **Apple Sidecar** only works with iPads on the *same Apple ID* and
+  supported hardware pairs. Android tablets need not apply.
 - **Duet Display** moved to a subscription.
 - **Luna Display** requires a hardware dongle.
 
-LinkUp is the missing option: a **free, open-source, no-account,
-no-dongle** way to use the iOS device you already own as a true second
-display. If you were about to write your own — don't! Contribute here
-instead; the hard parts (virtual display creation, low-latency H.264
-pipeline, USB transport, input injection) are already working.
+LinkUp is for people with an **Android tablet** who want a **free,
+open-source, no-account, no-dongle** second display. The hard parts (virtual
+display creation, low-latency H.264 pipeline, USB transport, input injection)
+are inherited from OpenDisplay and already working.
 
 ## Features
 
 - 🖥️ **True display extension** — macOS treats the device as a real second
   monitor (drag windows to it, arrange it in System Settings), not a mirror.
   Mirroring is also available as a mode.
-- 🔌 **USB-wired for lowest latency** — streams over the Lightning/USB-C
-  cable via macOS's built-in `usbmuxd`; plug in and go, no network, no
-  WiFi jitter, no helper tools.
-- 📶 **WiFi with zero config** — the iPhone advertises itself via Bonjour;
+- 🔌 **USB-wired for lowest latency** — on iPhone/iPad it streams over the
+  cable via macOS's built-in `usbmuxd`. On Android it runs over `adb forward`
+  today, with plug-and-play USB (AOA) in progress.
+- 📶 **WiFi with zero config** — the receiver advertises itself via Bonjour;
   pick it from a dropdown on the Mac.
 - 🔍 **Retina / HiDPI** — the virtual display matches the device panel
   pixel-for-pixel (@2x), so text is sharp.
-- 👆 **Touch input built in** — your iPhone becomes a touchscreen for macOS:
+- 👆 **Touch input built in** — your tablet becomes a touchscreen for macOS:
   **tap to click**, **drag to drag**, and **two-finger scroll** that feels
   like a trackpad. (Apple Pencil support is on the roadmap.)
 - 🔄 **Portrait or landscape** — rotate the device and the virtual display
   rebuilds itself as a vertical monitor at native resolution.
 - ⚡ **Low-latency pipeline** — hardware H.264 encode (VideoToolbox,
   real-time mode, no B-frames), TCP_NODELAY, frame-drop backpressure with
-  keyframe recovery, decode-and-render via `AVSampleBufferDisplayLayer`.
+  keyframe recovery. Decode-and-render via `MediaCodec` + `SurfaceView` on
+  Android and `AVSampleBufferDisplayLayer` on iOS.
 - 💻 **A spare Mac as a display** — install the small *LinkUp
   Receiver* app (macOS 12+) on an old Mac and any other Mac extends onto it
   over WiFi or a Thunderbolt/Ethernet cable, at native Retina resolution.
@@ -64,14 +68,22 @@ pipeline, USB transport, input injection) are already working.
 | | LinkUp | Apple Sidecar | Duet Display | Luna Display |
 |---|---|---|---|---|
 | Price | **Free, open source** | Free | Subscription | $$$ + dongle |
-| iPhone as display | ✅ | ❌ (iPad only) | ✅ | ✅ |
+| Android tablet as display | ✅ | ❌ | ✅ | ✅ |
+| iPhone / iPad as display | ✅ | ❌ (iPad only) | ✅ | ✅ |
 | Different Apple IDs | ✅ | ❌ | ✅ | ✅ |
-| Wired (USB) | ✅ | ✅ | ✅ | ❌ |
+| Wired (USB) | ✅ (Android: `adb` for now) | ✅ | ✅ | ❌ |
 | True extension | ✅ | ✅ | ✅ | ✅ |
 | Touch input | ✅ | ✅ | ✅ | ✅ |
 | Self-hosted / auditable | ✅ | — | ❌ | ❌ |
 
 ## FAQ
+
+**Does it work with Android?** Yes, that is the focus of LinkUp. The Android
+receiver lives in a separate repository (it is not part of this one) and speaks
+the same protocol as the iOS receiver ([PROTOCOL.md](PROTOCOL.md)). It has been
+tested on a Samsung tablet (SM-T735). Over WiFi it works out of the box; over USB it
+currently needs `adb forward tcp:9000 tcp:9000` until plug-and-play USB (AOA)
+lands.
 
 **Why do I see the purple screen-recording indicator in the menu bar?**
 That's a macOS privacy indicator shown for *any* app that captures the
@@ -144,7 +156,7 @@ The capture/streaming pipeline itself uses only public APIs.
 ## How it works
 
 ```
-MAC (sender)                                      iPHONE / iPAD (receiver)
+MAC (sender)                                      ANDROID / iPHONE / iPAD (receiver)
 CGVirtualDisplay  ← macOS believes a monitor is attached
    → ScreenCaptureKit (capture the virtual display)
    → VideoToolbox H.264 (hardware, real-time)
@@ -154,9 +166,9 @@ CGVirtualDisplay  ← macOS believes a monitor is attached
    → CGEvent injection (click / drag / scroll)
 ```
 
-The **phone listens and the Mac connects** — that ordering is what makes the
+The **device listens and the Mac connects** — that ordering is what makes the
 exact same code work over USB (via the `usbmuxd` daemon built into every
-macOS install) and WiFi. The phone
+macOS install for iOS, or `adb forward` for Android) and WiFi. The phone
 announces its native panel size; the Mac creates a `CGVirtualDisplay` at
 exactly half that in points (@2x HiDPI) and streams the pixels back.
 
@@ -171,8 +183,8 @@ on the App Store and lives on GitHub instead.
 
 ## Install
 
-You need **two apps**: a Mac app (captures and sends) and an iOS app
-(receives and displays). To use a **second Mac** as the display, install
+You need **two apps**: a Mac app (captures and sends) and a receiver on the
+device that displays it (Android, or iPhone/iPad). To use a **second Mac** as the display, install
 `LinkUp Receiver` on it instead of the iOS app.
 
 ### Prebuilt downloads (Mac)
@@ -186,6 +198,12 @@ opens with a plain double-click on macOS 14+ — no Gatekeeper warning. Open the
 For a Mac that should *be* the display, grab `LinkUpReceiver.dmg` from
 the same release instead. It runs on macOS 12+ and is signed and notarized
 the same way. Auto-update is not enabled yet — grab new versions from the releases page.
+
+### Android app
+
+The Android receiver is a separate project and is not built from this
+repository. Install it on the tablet, connect over the same WiFi, or over USB
+with `adb forward tcp:9000 tcp:9000` while plug-and-play USB is in progress.
 
 ### iPhone app
 
@@ -281,6 +299,7 @@ decoder was failing. Attach both if you can.
 Tracked as [roadmap issues](https://github.com/saulgabriel7/LinkUp/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap) — pick one up if you'd like to contribute!
 
 **Connectivity & distribution**
+- Plug-and-play USB for Android (AOA), without `adb`
 - Encrypted WiFi transport with pairing code
 - [ ] App Store release of the iOS app + notarized Mac downloads
 
@@ -344,7 +363,9 @@ artifacts.
 [GPL-3.0](LICENSE).
 
 LinkUp is derived from [OpenDisplay](https://github.com/peetzweg/opendisplay),
-Copyright (c) 2026 Philip Poloczek, used under the GPL-3.0. Modifications
+Copyright (c) 2026 Philip Poloczek, used under the GPL-3.0. The Android
+receiver is based on [opendisplay-android](https://github.com/josepacelli/opendisplay-android)
+by `josepacelli`; see that repository for its license. Modifications
 Copyright (c) 2026 LinkUp contributors.
 
 Free to use, study, and adapt. If you distribute a modified version it
