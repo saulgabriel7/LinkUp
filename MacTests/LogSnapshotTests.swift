@@ -46,7 +46,7 @@ final class LogSnapshotComposeTests: XCTestCase {
         appBuild: "342",
         model: "iPhone15,3",
         systemVersion: "18.5",
-        deviceName: "Phil's iPhone"
+        deviceName: "Sam's iPhone"
     )
 
     func testTheHeaderNamesTheBuildAndTheDevice() {
@@ -55,7 +55,7 @@ final class LogSnapshotComposeTests: XCTestCase {
                                       log: Data("[00:00:01] hello sent\n".utf8))
         XCTAssertTrue(out.contains("1.16.1 (342)"), out)
         XCTAssertTrue(out.contains("iPhone15,3, iOS 18.5"), out)
-        XCTAssertTrue(out.contains("Phil's iPhone"), out)
+        XCTAssertTrue(out.contains("Sam's iPhone"), out)
         XCTAssertTrue(out.hasSuffix("[00:00:01] hello sent\n"), out)
     }
 
@@ -89,8 +89,8 @@ final class LogSnapshotFileNameTests: XCTestCase {
     private let date = Date(timeIntervalSince1970: 0)
 
     func testDeviceNamesSurviveEveryFilesystemTheyPassThrough() {
-        let name = LogSnapshot.fileName(deviceName: "Phil's iPad Pro 🎉", date: date)
-        XCTAssertTrue(name.hasPrefix("LinkUp-Phil-s-iPad-Pro-"), name)
+        let name = LogSnapshot.fileName(deviceName: "Sam's iPad Pro 🎉", date: date)
+        XCTAssertTrue(name.hasPrefix("LinkUp-Sam-s-iPad-Pro-"), name)
         XCTAssertTrue(name.hasSuffix(".txt"), name)
         XCTAssertFalse(name.contains("--"), name)
     }

@@ -13,12 +13,6 @@ scroll input.
 
 [Website](https://saulgabriel7.github.io/LinkUp/) · [Quick start](#quick-start) · [How it works](#how-it-works) · [FAQ](#faq) · [Contributing](#contributing)
 
-<br />
-
-<a href="https://ko-fi.com/peetzweg">
-  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Buy Me a Coffee on ko-fi.com" />
-</a>
-
 </div>
 
 ---
@@ -122,8 +116,7 @@ the session onto the cable automatically, even one plugged in mid-session, and
 the device row says *Cable*. Older Macs with a Mini DisplayPort-shaped
 Thunderbolt 1 or 2 port work with a Thunderbolt 3 to 2 adapter and a
 Thunderbolt 2 cable.
-Input from the receiving Mac's keyboard and mouse is a follow-up
-([#147](https://github.com/saulgabriel7/LinkUp/issues/147)).
+Input from the receiving Mac's keyboard and mouse is a follow-up.
 
 **Why H.264 and not HEVC/AV1?** Hardware H.264 encode/decode is universally
 fast and the latency is excellent. HEVC is a planned option for better
@@ -147,32 +140,6 @@ private API. The same risk applies to every virtual-display product.
 The capture/streaming pipeline itself uses only public APIs.
 
 **Audio?** Out of scope for now.
-
-## Compatible apps
-
-The official apps cover a Mac sender and an iPhone/iPad receiver on iOS 16.4+.
-Other people have built their own clients that speak the same protocol, so
-you can also use an Android device or an older iPad as a display, or drive
-one from Linux. The wire protocol is specified in
-[PROTOCOL.md](PROTOCOL.md), so a new client can be written against the spec
-instead of reverse-engineered from the Swift sources. If your hardware is
-not covered yet, start here:
-
-**Android receivers**
-* [gprot42/android-opendisplay](https://github.com/gprot42/android-opendisplay) - GrapheneOS receiver for de-Googled Pixel phones and tablets, Android 8.0+
-* [josepacelli/opendisplay-android](https://github.com/josepacelli/opendisplay-android) - Android receiver, Android 8.0+, works with an unmodified Mac app
-
-**Older iOS receivers**
-* [cuongpham1/ipad-iphone-second-monitor-ios12-free](https://github.com/cuongpham1/ipad-iphone-second-monitor-ios12-free) - iOS 12 client for iPads and iPhones that cannot run the official app
-
-**Linux senders**
-* [tixwho/opendisplay-linux](https://github.com/tixwho/opendisplay-linux) - drive an iPhone or iPad from a Wayland desktop (KDE Plasma, Hyprland)
-
-These are fan-made projects, not official builds. They are not affiliated
-with LinkUp and are not maintained, reviewed, or supported by us, so
-please report issues with them in their own repositories. Listing them here
-also says nothing about our own plans: an official LinkUp app may still
-ship for any of these platforms later.
 
 ## How it works
 
@@ -218,19 +185,17 @@ opens with a plain double-click on macOS 14+ — no Gatekeeper warning. Open the
 
 For a Mac that should *be* the display, grab `LinkUpReceiver.dmg` from
 the same release instead. It runs on macOS 12+ and is signed and notarized
-the same way; both apps update themselves via Sparkle.
+the same way. Auto-update is not enabled yet — grab new versions from the releases page.
 
 ### iPhone app
 
 Needs **iOS / iPadOS 16 or newer** — including the 16.7.x line, which is where
 Apple left the iPad 5 (2017), the iPad Pro 1st gen, the iPhone 8 and the
 iPhone X. If your iPad can't be updated past 16.7, it can still be a second
-display ([#72](https://github.com/saulgabriel7/LinkUp/issues/72)).
+display.
 
-- **TestFlight** (recommended): join the public beta at
-  [testflight.apple.com/join/3NYaY11c](https://testflight.apple.com/join/3NYaY11c).
-- **Build from source**: open the project in Xcode, select your free Apple ID
-  under Signing, hit Run. Takes ~2 minutes.
+There is no App Store or TestFlight build yet, so **build from source**: open the
+project in Xcode, select your free Apple ID under Signing, hit Run. Takes ~2 minutes.
 
 ## Quick start (from source)
 
@@ -247,7 +212,7 @@ app onto your device).
 
 ```sh
 git clone https://github.com/saulgabriel7/LinkUp.git
-cd opendisplay
+cd LinkUp
 echo "DEVELOPMENT_TEAM=YOURTEAMID" > .env   # your Apple team ID, for signing
 ./generate.sh                               # runs xcodegen with your .env
 xcodebuild -project LinkUp.xcodeproj -scheme LinkUpMac \
@@ -316,69 +281,47 @@ decoder was failing. Attach both if you can.
 Tracked as [roadmap issues](https://github.com/saulgabriel7/LinkUp/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap) — pick one up if you'd like to contribute!
 
 **Connectivity & distribution**
-- [#16](https://github.com/saulgabriel7/LinkUp/issues/16) Encrypted WiFi transport with pairing code
+- Encrypted WiFi transport with pairing code
 - [ ] App Store release of the iOS app + notarized Mac downloads
 
 **Input**
-- [#4](https://github.com/saulgabriel7/LinkUp/issues/4) Apple Pencil with pressure and tilt
-- [#5](https://github.com/saulgabriel7/LinkUp/issues/5) Right-click and multi-touch gestures
-- [#6](https://github.com/saulgabriel7/LinkUp/issues/6) Hardware keyboard passthrough
-- [#7](https://github.com/saulgabriel7/LinkUp/issues/7) On-screen modifier key sidebar
+- Apple Pencil with pressure and tilt
+- Right-click and multi-touch gestures
+- Hardware keyboard passthrough
+- On-screen modifier key sidebar
 
 **Display & media**
-- [#9](https://github.com/saulgabriel7/LinkUp/issues/9) Resolution & quality settings
-- [#10](https://github.com/saulgabriel7/LinkUp/issues/10) HEVC encoding
-- [#12](https://github.com/saulgabriel7/LinkUp/issues/12) Audio forwarding
+- Resolution & quality settings
+- HEVC encoding
+- Audio forwarding
 
 **Experience**
-- [#11](https://github.com/saulgabriel7/LinkUp/issues/11) Menu bar app mode with auto-connect
-- [#13](https://github.com/saulgabriel7/LinkUp/issues/13) Battery & lifecycle awareness
+- Menu bar app mode with auto-connect
+- Battery & lifecycle awareness
 
 **Exploratory**
-- [#14](https://github.com/saulgabriel7/LinkUp/issues/14) Remote access beyond the local network
-- [#15](https://github.com/saulgabriel7/LinkUp/issues/15) Additional client platforms
+- Remote access beyond the local network
+- Additional client platforms
 
-Done: prebuilt releases, built-in USB connectivity (no helper tools), WiFi via Bonjour, portrait mode, touch + two-finger scroll, performance overlay, iPad support, multiple devices at once ([#8](https://github.com/saulgabriel7/LinkUp/issues/8) — every connected device becomes its own extended display), a Mac as the display ([#17](https://github.com/saulgabriel7/LinkUp/issues/17), WiFi or Thunderbolt/Ethernet cable).
+Done: prebuilt releases, built-in USB connectivity (no helper tools), WiFi via Bonjour, portrait mode, touch + two-finger scroll, performance overlay, iPad support, multiple devices at once (every connected device becomes its own extended display), a Mac as the display (WiFi or Thunderbolt/Ethernet cable).
 
 ## Auto-update (macOS app)
 
-The macOS app updates itself with [Sparkle](https://sparkle-project.org) —
-an open-source framework, **not** a hosted service. Update checks hit only
-our own infrastructure:
+Auto-update is **disabled for now**. The macOS apps embed
+[Sparkle](https://sparkle-project.org) (an open-source framework, not a hosted
+service), but the updater is intentionally not started and no appcast feed or
+signing key is configured. To switch it on:
 
-- The app reads an **appcast** feed hosted on the landing-page site:
-  `https://opendisplay.app/appcast.xml` (`SUFeedURL` in `project.yml`).
-- The release workflow (`.github/workflows/release.yml`, `build-mac` job)
-  runs Sparkle's `generate_appcast` against the notarized `LinkUp.dmg`,
-  signs it with the EdDSA key, commits the result to `public/appcast.xml`,
-  and dispatches the Pages deploy — so the published feed points download
-  links at the GitHub Release assets.
-- Sparkle verifies both the EdDSA signature and Apple's notarization before
-  installing. The app checks automatically in the background
-  (`SUEnableAutomaticChecks`) and offers a manual **"Check for Updates…"**
-  button next to **Quit** in the menu-bar window.
-
-### Maintainer prerequisites (before auto-update goes live)
-
-Auto-update is **scaffolded but inert** until the signing keys are in place.
-The private signing key is **never** committed — it lives only as a CI
-secret. To switch it on:
-
-1. **Generate the key pair.** Run Sparkle's `generate_keys` once (it ships
-   in the Sparkle SPM artifact bundle and in the release tarball at
-   `bin/generate_keys`). It prints a **public** key and stores the
-   **private** key in your login keychain.
-2. **Public key →** paste it into `SUPublicEDKey` in `project.yml` (replace
-   the `REPLACE_WITH_SUPUBLICEDKEY_FROM_generate_keys` placeholder), then
-   re-run `xcodegen generate` and commit.
-3. **Private key →** add it as the `SPARKLE_PRIVATE_KEY` GitHub Actions
-   secret (export it with `generate_keys -x private_key.pem` if needed). The
-   appcast step in `release.yml` no-ops gracefully while this secret is
-   absent, so releases keep working until you're ready.
-4. The **first appcast publishes on the next release** after both keys are
-   set. Confirm `https://opendisplay.app/appcast.xml` resolves, then **test
-   the full update flow on a real signed/notarized build** (check → download
-   → verify → relaunch) — this can't be validated in CI.
+1. Generate an EdDSA key pair with Sparkle's `generate_keys` (it ships in the
+   Sparkle SPM artifact bundle and in the release tarball at `bin/generate_keys`).
+   Keep the **private** key out of the repo, e.g. as a CI secret.
+2. Add `SUFeedURL` (where you will host `appcast.xml`), `SUPublicEDKey` and
+   `SUEnableAutomaticChecks` to both Mac targets in `project.yml`, and change
+   `startingUpdater: false` to `true` in `Mac/LinkUpMacApp.swift` and
+   `MacReceiver/LinkUpMacReceiverApp.swift`.
+3. Add a release step that runs Sparkle's `generate_appcast` on the notarized
+   DMGs and publishes the feed, then test the full update flow (check → download
+   → verify → relaunch) on a real signed and notarized build.
 
 ## Contributing
 
@@ -398,13 +341,16 @@ artifacts.
 
 ## License
 
-[GPL-3.0](LICENSE) — Copyright (c) 2026 Philip Poloczek.
+[GPL-3.0](LICENSE).
+
+LinkUp is derived from [OpenDisplay](https://github.com/peetzweg/opendisplay),
+Copyright (c) 2026 Philip Poloczek, used under the GPL-3.0. Modifications
+Copyright (c) 2026 LinkUp contributors.
 
 Free to use, study, and adapt. If you distribute a modified version it
 must remain open source under the same license, with the original
 attribution intact — improvements flow back to everyone instead of into
-closed forks. (Versions up to v0.4.x were MIT-licensed; those releases
-remain available under MIT.)
+closed forks.
 
 ---
 

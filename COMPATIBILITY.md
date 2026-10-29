@@ -2,10 +2,8 @@
 
 How the two LinkUp apps stay compatible when they update on **different
 schedules**, who is responsible for detecting a mismatch, and what pairings we
-support. This is the spec for issues
-[#132](https://github.com/saulgabriel7/LinkUp/issues/132) (release
-orchestration), [#135](https://github.com/saulgabriel7/LinkUp/issues/135)
-(force update), and the wire-protocol handshake.
+support. This is the spec for release orchestration, the force-update lever,
+and the wire-protocol handshake.
 
 The wire protocol itself — framing, discovery, the video format, and the
 full control-message catalog — is specified in [PROTOCOL.md](PROTOCOL.md).
@@ -23,7 +21,7 @@ We cut Mac and iOS from one release tag, but distribution is not simultaneous:
 
 | | Update channel | Time to reach a user |
 |---|---|---|
-| **Mac** | Sparkle appcast (`opendisplay.app/appcast.xml`) | hours — auto, silent |
+| **Mac** | Sparkle appcast _(planned; auto-update is currently disabled)_ | hours — auto, silent |
 | **iOS** | App Store (review + user tapping Update) | days → weeks, with a **long tail** |
 
 So at any moment the field holds many version pairings. The dominant one is
@@ -114,8 +112,8 @@ next to the Sparkle appcast:
   {
     "ios": {
       "hardMinimumVersion": "0.0.0",
-      "recommendedVersion": "1.12.0",
-      "storeURL": "itms-apps://apps.apple.com/app/id6780264891",
+      "recommendedVersion": "0.0.0",
+      "storeURL": "https://github.com/saulgabriel7/LinkUp/releases",
       "message": "…"
     }
   }

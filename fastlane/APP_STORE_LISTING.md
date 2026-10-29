@@ -24,7 +24,7 @@ Second monitor for your Mac
 
 **Copyright** _(format: year + rights holder; App Store Connect adds the © itself — do not type it)_
 ```
-2026 Philip Poloczek
+2026 LinkUp contributors
 ```
 
 **Content Rights** — does the app contain, show, or access third-party content?

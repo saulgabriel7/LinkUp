@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
-import Showcase from "./components/Showcase"
-import SupportNudge from "./components/SupportNudge"
 import TextRotate from "./components/TextRotate"
 
 const HERO_WORDS = [
@@ -131,12 +129,9 @@ export default function App() {
             </motion.span>
           </a>
           <div className="links">
-            <a href="#demo">Demo</a>
-            <a href="#support">Support</a>
             <a href="#features">Features</a>
             <a href="#why">Compare</a>
             <a href="#faq">FAQ</a>
-            <a href="#compatible">Other platforms</a>
             <a href="#contribute">Contribute</a>
             <a
               className="gh"
@@ -159,9 +154,6 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Sticky-scope: the Ko-fi bar sticks under the nav through the hero and
-          demo, then releases where this div ends — right before #support. */}
-      <div className="nudge-scope">
       <section>
         <div className="wrap hero">
           <img ref={heroLogoRef} className="hero-logo" src="logo.png" alt="LinkUp" width="160" height="160" />
@@ -194,10 +186,6 @@ export default function App() {
           <p className="meta">macOS 14+ &nbsp;·&nbsp; iPadOS 16+ &nbsp;·&nbsp; iOS 16+ &nbsp;·&nbsp; Receiver Mac 12+ &nbsp;·&nbsp; GPL-3.0</p>
         </div>
       </section>
-
-      {/* Full-width Ko-fi bar between the hero pitch and the downloads. It sits
-          in flow here and pins under the nav once you scroll past it. */}
-      <SupportNudge />
 
       <section className="downloads-sec">
         <div className="wrap">
@@ -244,87 +232,18 @@ export default function App() {
                     <span className="step">Step {iosFirst ? 1 : 2}</span> On your iPhone &amp; iPad
                   </div>
                   <p className="dl-sub">The receiver — displays the stream and sends touch back.</p>
-                  {/* TODO: On desktop only, show a QR code next to the App Store
-                      badge that encodes the App Store link, so visitors on a
-                      desktop PC can scan it with their iPhone or iPad to install
-                      the receiver. Hide it on touch/mobile viewports. */}
-                  <div className="ios-row">
-                    <a
-                      className="badge-wrap"
-                      href="https://apps.apple.com/app/id6780264891"
-                    >
-                      <img
-                        className="appstore-badge"
-                        src="app-store-badge.svg"
-                        alt="Download on the App Store"
-                        width="120"
-                        height="40"
-                      />
-                    </a>
-                  </div>
-                  <p className="sub">
-                    Want early builds? <a id="testflight" href="https://testflight.apple.com/join/3NYaY11c">
-                      Join the TestFlight beta
-                    </a>
-                    ,<br />
-                    or{" "}
+                  <p className="note">
+                    The iPhone &amp; iPad app isn't on the App Store yet.{" "}
                     <a href="https://github.com/saulgabriel7/LinkUp#quick-start">
-                      compile it from source ↗
-                    </a>
-                    .
+                      Compile it from source ↗
+                    </a>{" "}
+                    with your own (free) Apple developer account.
                   </p>
                 </div>
               )
               return iosFirst ? [iosStep, macStep] : [macStep, iosStep]
             })()}
           </div>
-        </div>
-      </section>
-
-      <section id="demo">
-        <div className="wrap sec">
-          <p className="eyebrow">Demo</p>
-          <h2>See it in action.</h2>
-          <p className="sub">
-            Using LinkUp in the wild?{" "}
-            <a href="https://x.com/peetzweg">Tag @peetzweg on X</a> and your setup might
-            end up here.
-          </p>
-          <Showcase />
-        </div>
-      </section>
-      </div>
-
-      <section id="support">
-        <div className="wrap sec support">
-          <p className="eyebrow">Support the project</p>
-          <img className="kofi-logo" src="kofi-logo.png" alt="Ko-fi" width="200" height="61" />
-          <h2>If LinkUp saved you a monitor, consider buying me a coffee.</h2>
-          <div className="support-note">
-            <p>
-              LinkUp is a one-person labour of love, built and maintained by me,
-              Philip. It's not a company. It's just me.
-            </p>
-            <p>
-              It's free, open source, and funded out of my own pocket. The fixed costs
-              are modest but real: <strong>$99 a year</strong> for the Apple Developer
-              membership behind the signed, one-click installs, and <strong>$11 a year</strong>{" "}
-              for the domain. On top of that go a lot of unpaid evenings and weekends.
-            </p>
-            <p>
-              Supporting me on Ko-fi keeps LinkUp well maintained and free for
-              everyone, including the people who can't afford to chip in. My goal is to
-              make this the greatest display companion app there is for iPad.
-            </p>
-            <p>
-              If it saved you from buying a monitor, a small tip helps keep it going.
-              Thank you.
-            </p>
-          </div>
-          <a className="btn kofi" href="https://ko-fi.com/peetzweg">
-            <img className="kofi-mark" src="kofi-mark.webp" alt="" width="28" height="28" />
-            Support on Ko-fi
-          </a>
         </div>
       </section>
 
@@ -407,12 +326,11 @@ export default function App() {
             </details>
             <details>
               <summary>Is this on the App Store?</summary>
-              <p>Yes — the iPhone &amp; iPad receiver is{" "}
-              <a href="https://apps.apple.com/app/id6780264891">live on the App Store</a>. The Mac
-              app ships as a signed, notarized direct download rather than through the Mac App Store
-              because it relies on <code>CGVirtualDisplay</code>, a private API — that's the deal for
-              every virtual-display product: use it or ship a dongle. You can also build either app
-              from source with your own (free) Apple developer account in a few minutes.</p>
+              <p>Not yet. The Mac app ships as a signed, notarized direct download rather than through
+              the Mac App Store because it relies on <code>CGVirtualDisplay</code>, a private API —
+              that's the deal for every virtual-display product: use it or ship a dongle. The iPhone
+              &amp; iPad app can be built from source with your own (free) Apple developer account in
+              a few minutes.</p>
             </details>
             <details>
               <summary>Why do I see the purple screen-recording indicator on my Mac?</summary>
@@ -460,56 +378,9 @@ export default function App() {
               <a href="https://github.com/saulgabriel7/LinkUp/blob/main/LICENSE">GPL-3.0</a>. You can
               use, study, and adapt it freely — including commercially. If you distribute a modified
               version, it must remain open source under the same license with the original attribution
-              intact, so improvements flow back to everyone instead of into closed forks. (Releases up
-              to v0.4.x were MIT-licensed and remain available under those terms.)</p>
+              intact (LinkUp is derived from OpenDisplay, also GPL-3.0), so improvements flow back to everyone instead of into closed forks.</p>
             </details>
           </div>
-        </div>
-      </section>
-
-      {/* Community clients for hardware the official apps don't cover. Keep in
-          sync with the "Compatible apps" section in the README. */}
-      <section id="compatible">
-        <div className="wrap sec">
-          <p className="eyebrow">Compatible apps</p>
-          <h2>Android, older iPads, Linux.</h2>
-          <p className="compat-lead">
-            The official apps are a Mac sender and an iPhone or iPad receiver. Other people have
-            built their own clients that speak the same protocol, so you can also use an Android
-            device or an older iPad as a display, or drive one from Linux. If your hardware isn't
-            covered yet, start here.
-          </p>
-          <div className="compat">
-            <a className="compat-item" href="https://github.com/gprot42/android-opendisplay">
-              <span className="compat-role">Android receiver</span>
-              <span className="compat-repo">gprot42/android-opendisplay ↗</span>
-              <p>GrapheneOS receiver for de-Googled Pixel phones and tablets. Android 8.0+.</p>
-            </a>
-            <a className="compat-item" href="https://github.com/josepacelli/opendisplay-android">
-              <span className="compat-role">Android receiver</span>
-              <span className="compat-repo">josepacelli/opendisplay-android ↗</span>
-              <p>Android receiver that works with an unmodified Mac app. Android 8.0+.</p>
-            </a>
-            <a
-              className="compat-item"
-              href="https://github.com/cuongpham1/ipad-iphone-second-monitor-ios12-free"
-            >
-              <span className="compat-role">iOS 12 receiver</span>
-              <span className="compat-repo">cuongpham1/ipad-iphone-second-monitor-ios12-free ↗</span>
-              <p>For iPads and iPhones too old to run the official receiver.</p>
-            </a>
-            <a className="compat-item" href="https://github.com/tixwho/opendisplay-linux">
-              <span className="compat-role">Linux sender</span>
-              <span className="compat-repo">tixwho/opendisplay-linux ↗</span>
-              <p>Drive an iPhone or iPad from a Wayland desktop (KDE Plasma, Hyprland).</p>
-            </a>
-          </div>
-          <p className="compat-note">
-            These are fan-made projects, not official builds. They aren't affiliated with
-            LinkUp and aren't maintained, reviewed or supported by us, so please report issues
-            with them in their own repositories. Listing them here also says nothing about our own
-            plans: an official LinkUp app may still ship for any of these platforms later.
-          </p>
         </div>
       </section>
 
@@ -542,11 +413,13 @@ export default function App() {
             <a href="https://github.com/saulgabriel7/LinkUp">GitHub</a>
             <a href="https://github.com/saulgabriel7/LinkUp/releases/latest">Releases</a>
             <a href="https://github.com/saulgabriel7/LinkUp/issues">Issues</a>
-            <a href="https://ko-fi.com/peetzweg">Support / Ko-fi</a>
             <a href="privacy.html">Privacy</a>
             <a href="https://github.com/saulgabriel7/LinkUp/blob/main/LICENSE">GPL-3.0 License</a>
           </div>
           <p className="fine">LinkUp — use your iPhone or iPad as a second monitor for your Mac. Free forever.</p>
+          <p className="fine">
+            Derived from <a href="https://github.com/peetzweg/opendisplay">OpenDisplay</a> by Philip Poloczek, licensed under GPL-3.0.
+          </p>
         </div>
       </footer>
     </>

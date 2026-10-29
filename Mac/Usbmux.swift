@@ -18,7 +18,7 @@ import Network
 struct UsbmuxDevice: Hashable, Identifiable {
     let deviceID: Int     // usbmuxd's handle — changes on every replug
     let udid: String      // stable hardware identifier
-    var name: String?     // lockdown DeviceName ("Philip's iPhone"), best-effort
+    var name: String?     // lockdown DeviceName ("Sam's iPhone"), best-effort
 
     var id: String { udid }
     var label: String { "\(name ?? "iPhone / iPad") (USB)" }
@@ -98,7 +98,7 @@ enum Usbmux {
         return try await connect(deviceID: device.deviceID, port: port, queue: queue)
     }
 
-    /// Best-effort friendly name ("Philip's iPhone") from lockdownd, which
+    /// Best-effort friendly name ("Sam's iPhone") from lockdownd, which
     /// answers DeviceName without a pairing session. Note lockdown framing
     /// differs from usbmuxd framing: [UInt32 BE length][XML plist].
     static func deviceName(deviceID: Int, queue: DispatchQueue) async throws -> String {
