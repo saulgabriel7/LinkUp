@@ -1,4 +1,4 @@
-# OpenDisplay — free, open-source Sidecar/Duet alternative
+# LinkUp — free, open-source Sidecar/Duet alternative
 # Allow all crawlers full access.
 User-agent: *
 Allow: /

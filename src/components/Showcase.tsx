@@ -9,7 +9,7 @@ const ITEMS: ShowcaseItem[] = [
   {
     kind: "youtube",
     id: "wyEUkMgH3zw",
-    title: "OpenDisplay demo — use your iPad as a second monitor for your Mac",
+    title: "LinkUp demo — use your iPad as a second monitor for your Mac",
   },
   ...COVERAGE,
 ]

@@ -4,7 +4,7 @@
 // Mac. The pipeline is the shared StreamReceiver core; this file is only the
 // AppKit shell around it: lifecycle, the video window, cursor drawing, and
 // keeping the machine awake while it serves as a screen. It ships as its own
-// app (OpenSidecarMacReceiver target, macOS 12+) so old Macs can be displays.
+// app (LinkUpMacReceiver target, macOS 12+) so old Macs can be displays.
 //
 // Display-only for now: the receiving Mac's keyboard/trackpad are not
 // forwarded to the sender (KVM-style input is a follow-up).
@@ -176,7 +176,7 @@ final class ReceiverController: ObservableObject {
             let w = NSWindow(contentRect: initialContentRect(video: receiver.videoSize),
                              styleMask: [.titled, .closable, .miniaturizable, .resizable],
                              backing: .buffered, defer: false)
-            w.title = "OpenDisplay"
+            w.title = "LinkUp"
             w.contentView = ReceiverVideoView(receiver: receiver)
             w.isReleasedWhenClosed = false
             w.collectionBehavior.insert(.fullScreenPrimary)
@@ -219,11 +219,11 @@ final class ReceiverController: ObservableObject {
         if receiving, sleepActivity == nil {
             var assertionID = IOPMAssertionID(0)
             IOPMAssertionDeclareUserActivity(
-                "OpenDisplay stream started" as CFString,
+                "LinkUp stream started" as CFString,
                 kIOPMUserActiveLocal, &assertionID)
             sleepActivity = ProcessInfo.processInfo.beginActivity(
                 options: [.idleDisplaySleepDisabled, .idleSystemSleepDisabled],
-                reason: "OpenDisplay is receiving a display stream")
+                reason: "LinkUp is receiving a display stream")
         } else if !receiving, let activity = sleepActivity {
             ProcessInfo.processInfo.endActivity(activity)
             sleepActivity = nil

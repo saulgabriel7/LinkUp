@@ -143,7 +143,7 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
     private let mode: CaptureMode
     private let quality: StreamQuality
     // Stable per-device serial for the virtual display, so macOS can tell
-    // multiple OpenDisplay monitors apart and persist their arrangement.
+    // multiple LinkUp monitors apart and persist their arrangement.
     private let displaySerial: UInt32
     // How far this device's identity has already moved off its base serial
     // and productID (identities macOS saved hostile state for are abandoned
@@ -239,7 +239,7 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
     // capture→encode→stream→display latency (~30ms perceived). Instead we
     // hide it from capture and stream its position on the control channel —
     // the phone draws it locally on the ~2ms path the touches use.
-    // Escape hatch: `defaults write sh.peet.opensidecar.mac localCursor -bool false`.
+    // Escape hatch: `defaults write com.saulgabriel7.linkup.mac localCursor -bool false`.
     private let localCursor = UserDefaults.standard.object(forKey: "localCursor") == nil
         || UserDefaults.standard.bool(forKey: "localCursor")
     private var cursorTimer: DispatchSourceTimer?
@@ -441,8 +441,8 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
         // USB sessions can start before lockdown resolves the device name —
         // fall back to the kind from the hello rather than the generic label.
         let displayName = endpointName.hasPrefix("iPhone / iPad")
-            ? "OpenDisplay — \(info.kind)"
-            : "OpenDisplay — \(endpointName)"
+            ? "LinkUp — \(info.kind)"
+            : "LinkUp — \(endpointName)"
         // Keep one stable identity across rotations. Reconfiguration below
         // applies a new mode to the existing virtual monitor, so macOS keeps
         // its windows and arrangement attached to this physical device.
@@ -540,7 +540,7 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
             if sawPoisonedIdentity {
                 throw NSError(domain: "MacSender", code: 5, userInfo: [
                     NSLocalizedDescriptionKey: "saved display state in macOS is blocking "
-                        + "OpenDisplay's displays — log out and back in (or restart the Mac), then reconnect"])
+                        + "LinkUp's displays — log out and back in (or restart the Mac), then reconnect"])
             }
             throw identityError
         }
@@ -562,7 +562,7 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
         }
         try await startCapture(display: display, pixelsWide: captureW, pixelsHigh: captureH)
 
-        // Debug aid (`defaults write sh.peet.opensidecar.mac testPattern -bool true`):
+        // Debug aid (`defaults write com.saulgabriel7.linkup.mac testPattern -bool true`):
         // an animated window on the virtual display generates a constant frame
         // stream so steady-state latency can be measured without user activity.
         if UserDefaults.standard.bool(forKey: "testPattern") {
@@ -1348,7 +1348,7 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
                         self.dialRefused()
                         hint = self.awaitingWake
                             ? "\(self.endpointName) is asleep — reconnects when it wakes…"
-                            : "Device found — open the OpenDisplay app on it…"
+                            : "Device found — open the LinkUp app on it…"
                     default:
                         Log.info("usb dial failed: \(error)")
                         hint = "USB connection failed: \(error.localizedDescription)"
@@ -2218,10 +2218,10 @@ final class MacSender: NSObject, SCStreamOutput, SCStreamDelegate {
         let dict: [String: Any] = [
             "type": WireMessage.updateRequired,
             "target": isMac ? "mac" : "ios",
-            "store": isMac ? "https://opendisplay.app" : AppStore.updateURL.absoluteString,
+            "store": isMac ? "https://github.com/saulgabriel7/LinkUp/releases" : AppStore.updateURL.absoluteString,
             "message": isMac
-                ? "The OpenDisplay Receiver app on that Mac is too old for this Mac. Use Check for Updates… there to reconnect."
-                : "This \(kind) app is too old for this Mac. Update OpenDisplay from the App Store to reconnect.",
+                ? "The LinkUp Receiver app on that Mac is too old for this Mac. Use Check for Updates… there to reconnect."
+                : "This \(kind) app is too old for this Mac. Update LinkUp from the App Store to reconnect.",
         ]
         if let data = try? JSONSerialization.data(withJSONObject: dict),
            let json = String(data: data, encoding: .utf8) {

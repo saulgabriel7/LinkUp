@@ -1,2 +1,2 @@
-app_identifier(["com.peetzweg.opensidecar.mac", "com.peetzweg.opensidecar.mac.receiver", "com.peetzweg.opensidecar.ios"])
+app_identifier(["com.saulgabriel7.linkup.mac", "com.saulgabriel7.linkup.mac.receiver", "com.saulgabriel7.linkup.ios"])
 team_id(ENV["DEVELOPMENT_TEAM"])

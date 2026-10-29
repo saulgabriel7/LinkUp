@@ -235,7 +235,7 @@ a.showcase-item.is-post .coverage-body { min-height: 52px; padding: 0; }
 
 /* ---- "why" comparison rows ---- */
 .compare { border-top: 1px solid var(--line); margin-top: 28px; }
-/* 24px horizontal padding = the boxed OpenDisplay row's 2px border + 22px padding,
+/* 24px horizontal padding = the boxed LinkUp row's 2px border + 22px padding,
    so every product name and description lines up with the highlighted one */
 .compare .row { display: grid; grid-template-columns: 150px 1fr; gap: 24px;
   padding: 22px 24px; border-bottom: 1px solid var(--line); align-items: start; }
@@ -254,7 +254,7 @@ code { font-family: var(--mono); }
 p code { font-size: 0.88em; background: #f2f2f2; padding: 1px 5px; }
 
 /* ---- comparison table ---- */
-/* no outer frame — keep only the inner row lines (and the boxed OpenDisplay column) */
+/* no outer frame — keep only the inner row lines (and the boxed LinkUp column) */
 .tbl-scroll { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 660px; }
 th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--line);
@@ -266,7 +266,7 @@ thead th { text-align: center; font-size: 1rem; color: var(--fg); font-weight: 6
 tbody td:first-child { color: var(--muted); }
 .mark-yes { color: var(--fg); font-weight: 600; }
 .mark-no { color: var(--faint); }
-/* highlight the OpenDisplay column — framed in brand blue */
+/* highlight the LinkUp column — framed in brand blue */
 th.os, td.os { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent);
   background: #fafafa; }
 thead th.os { border-top: 2px solid var(--accent); color: var(--fg); }

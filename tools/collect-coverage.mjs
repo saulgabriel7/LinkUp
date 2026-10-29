@@ -17,7 +17,7 @@ const urls = [...source.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map(([, url]) =>
 
 for (const url of urls) {
   try {
-    const response = await fetch(url, { headers: { "user-agent": "OpenDisplay coverage metadata refresher" } })
+    const response = await fetch(url, { headers: { "user-agent": "LinkUp coverage metadata refresher" } })
     const html = await response.text()
     console.log(JSON.stringify({
       url,

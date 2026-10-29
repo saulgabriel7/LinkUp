@@ -6,7 +6,7 @@ final class RotatingLogFileTests: XCTestCase {
 
     override func setUpWithError() throws {
         directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("OpenDisplayLogTests-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("LinkUpLogTests-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     }
 

@@ -32,8 +32,8 @@ jobs:
       - name: Run macOS tests
         run: |
           xcodebuild test \
-            -project OpenSidecar.xcodeproj \
-            -scheme OpenSidecarMac \
+            -project LinkUp.xcodeproj \
+            -scheme LinkUpMac \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
@@ -45,8 +45,8 @@ jobs:
       - name: Build macOS receiver app
         run: |
           xcodebuild build \
-            -project OpenSidecar.xcodeproj \
-            -scheme OpenSidecarMacReceiver \
+            -project LinkUp.xcodeproj \
+            -scheme LinkUpMacReceiver \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \

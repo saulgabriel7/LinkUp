@@ -86,7 +86,7 @@ struct DiagnosticsLogView: View {
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
                 Text("The log could not be read.")
-                Text("Restart OpenDisplay and try again.")
+                Text("Restart LinkUp and try again.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }

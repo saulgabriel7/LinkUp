@@ -44,7 +44,7 @@ final class VersionGate: ObservableObject {
     private var remoteStatus: Status = .ok
     private var peerStatus: Status = .ok
 
-    private let manifestURL = URL(string: "https://opendisplay.app/ios-version.json")!
+    private let manifestURL = URL(string: "https://saulgabriel7.github.io/LinkUp/ios-version.json")!
 
     /// The running app's marketing version. Local/dev builds ship "0.0.0"
     /// (the project.yml default), which we treat as "skip the gate".
@@ -119,9 +119,9 @@ final class VersionGate: ObservableObject {
     }
 
     private static let requiredFallback =
-        "This version of OpenDisplay is no longer supported. Update from the App Store to keep using your second display."
+        "This version of LinkUp is no longer supported. Update from the App Store to keep using your second display."
     private static let recommendedFallback =
-        "A newer version of OpenDisplay is available."
+        "A newer version of LinkUp is available."
 }
 
 /// Numeric dotted-version compare (e.g. "0.10.0" older than "0.11.0"). Missing

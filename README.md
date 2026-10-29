@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="public/logo.png" width="128" alt="OpenDisplay app icon" />
+<img src="public/logo.png" width="128" alt="LinkUp app icon" />
 
-# OpenDisplay
+# LinkUp
 
 **Turn your spare Apple devices into second monitors for your Mac — free, open source, no subscription.**
 
@@ -11,7 +11,7 @@ alternative to Apple Sidecar, Duet Display, and Luna Display: true extended
 display (not just mirroring), Retina-sharp, over USB or WiFi, with touch and
 scroll input.
 
-[Website](https://peetzweg.github.io/opendisplay/) · [Quick start](#quick-start) · [How it works](#how-it-works) · [FAQ](#faq) · [Contributing](#contributing)
+[Website](https://saulgabriel7.github.io/LinkUp/) · [Quick start](#quick-start) · [How it works](#how-it-works) · [FAQ](#faq) · [Contributing](#contributing)
 
 <br />
 
@@ -23,7 +23,7 @@ scroll input.
 
 ---
 
-## Why OpenDisplay exists
+## Why LinkUp exists
 
 Turning an iPhone or iPad into an external display for a Mac is a solved
 problem — but every existing option has a catch:
@@ -33,7 +33,7 @@ problem — but every existing option has a catch:
 - **Duet Display** moved to a subscription.
 - **Luna Display** requires a hardware dongle.
 
-OpenDisplay is the missing option: a **free, open-source, no-account,
+LinkUp is the missing option: a **free, open-source, no-account,
 no-dongle** way to use the iOS device you already own as a true second
 display. If you were about to write your own — don't! Contribute here
 instead; the hard parts (virtual display creation, low-latency H.264
@@ -59,7 +59,7 @@ pipeline, USB transport, input injection) are already working.
 - ⚡ **Low-latency pipeline** — hardware H.264 encode (VideoToolbox,
   real-time mode, no B-frames), TCP_NODELAY, frame-drop backpressure with
   keyframe recovery, decode-and-render via `AVSampleBufferDisplayLayer`.
-- 💻 **A spare Mac as a display** — install the small *OpenDisplay
+- 💻 **A spare Mac as a display** — install the small *LinkUp
   Receiver* app (macOS 12+) on an old Mac and any other Mac extends onto it
   over WiFi or a Thunderbolt/Ethernet cable, at native Retina resolution.
 - 🔒 **Self-hosted & private** — your screen never touches anyone's server.
@@ -67,7 +67,7 @@ pipeline, USB transport, input injection) are already working.
 
 ## Comparison
 
-| | OpenDisplay | Apple Sidecar | Duet Display | Luna Display |
+| | LinkUp | Apple Sidecar | Duet Display | Luna Display |
 |---|---|---|---|---|
 | Price | **Free, open source** | Free | Subscription | $$$ + dongle |
 | iPhone as display | ✅ | ❌ (iPad only) | ✅ | ✅ |
@@ -96,7 +96,7 @@ iPhone app open in the foreground. USB mode is unaffected.
 charge-only USB cable will **not** work. Look for a cable described as a
 *data*, *sync*, or *charging and data-transfer* cable. A data-capable USB 2.0
 cable is enough; USB 3, Thunderbolt, and video Alt Mode are not required.
-OpenDisplay streams H.264 over a TCP connection through macOS's built-in
+LinkUp streams H.264 over a TCP connection through macOS's built-in
 `usbmuxd`, not as a USB video device. Its highest-quality preset uses 18 Mb/s,
 well below USB 2.0's 480 Mb/s high-speed link rate, so USB 2.0 has ample
 bandwidth for the stream. USB 1.x is not supported or tested. For best
@@ -108,7 +108,7 @@ adapters.
 iPad is the same codebase. iPad-specific polish (Pencil, pressure) is on the
 roadmap.
 
-**Can another Mac be the display?** Yes. Install **OpenDisplay Receiver**
+**Can another Mac be the display?** Yes. Install **LinkUp Receiver**
 (a separate, small app from the same release) on the spare Mac. It only needs
 **macOS 12 Monterey** or newer, so Macs from around 2015 onward qualify even
 though the sending Mac needs macOS 14. The receiver shows up on the sending Mac
@@ -123,7 +123,7 @@ the device row says *Cable*. Older Macs with a Mini DisplayPort-shaped
 Thunderbolt 1 or 2 port work with a Thunderbolt 3 to 2 adapter and a
 Thunderbolt 2 cable.
 Input from the receiving Mac's keyboard and mouse is a follow-up
-([#147](https://github.com/peetzweg/opendisplay/issues/147)).
+([#147](https://github.com/saulgabriel7/LinkUp/issues/147)).
 
 **Why H.264 and not HEVC/AV1?** Hardware H.264 encode/decode is universally
 fast and the latency is excellent. HEVC is a planned option for better
@@ -133,7 +133,7 @@ quality-per-bit.
 between your Mac and your device, over your cable or your LAN. No servers,
 no accounts, no analytics. Full details — including what the apps store
 locally and the current WiFi-encryption caveat — on the
-[privacy page](https://peetzweg.github.io/opendisplay/privacy.html).
+[privacy page](https://saulgabriel7.github.io/LinkUp/privacy.html).
 
 **What's the license? Can I fork it or use it commercially?**
 [GPL-3.0](LICENSE). Use, study, and adapt it freely — commercially too. If
@@ -169,9 +169,9 @@ not covered yet, start here:
 * [tixwho/opendisplay-linux](https://github.com/tixwho/opendisplay-linux) - drive an iPhone or iPad from a Wayland desktop (KDE Plasma, Hyprland)
 
 These are fan-made projects, not official builds. They are not affiliated
-with OpenDisplay and are not maintained, reviewed, or supported by us, so
+with LinkUp and are not maintained, reviewed, or supported by us, so
 please report issues with them in their own repositories. Listing them here
-also says nothing about our own plans: an official OpenDisplay app may still
+also says nothing about our own plans: an official LinkUp app may still
 ship for any of these platforms later.
 
 ## How it works
@@ -206,17 +206,17 @@ on the App Store and lives on GitHub instead.
 
 You need **two apps**: a Mac app (captures and sends) and an iOS app
 (receives and displays). To use a **second Mac** as the display, install
-`OpenDisplay Receiver` on it instead of the iOS app.
+`LinkUp Receiver` on it instead of the iOS app.
 
 ### Prebuilt downloads (Mac)
 
-Grab `OpenDisplay.dmg` from the
-[latest release](https://github.com/peetzweg/opendisplay/releases/latest).
+Grab `LinkUp.dmg` from the
+[latest release](https://github.com/saulgabriel7/LinkUp/releases/latest).
 The app is signed with a Developer ID certificate and notarized by Apple, so it
 opens with a plain double-click on macOS 14+ — no Gatekeeper warning. Open the
 `.dmg` and drag the app to Applications.
 
-For a Mac that should *be* the display, grab `OpenDisplayReceiver.dmg` from
+For a Mac that should *be* the display, grab `LinkUpReceiver.dmg` from
 the same release instead. It runs on macOS 12+ and is signed and notarized
 the same way; both apps update themselves via Sparkle.
 
@@ -225,7 +225,7 @@ the same way; both apps update themselves via Sparkle.
 Needs **iOS / iPadOS 16 or newer** — including the 16.7.x line, which is where
 Apple left the iPad 5 (2017), the iPad Pro 1st gen, the iPhone 8 and the
 iPhone X. If your iPad can't be updated past 16.7, it can still be a second
-display ([#72](https://github.com/peetzweg/opendisplay/issues/72)).
+display ([#72](https://github.com/saulgabriel7/LinkUp/issues/72)).
 
 - **TestFlight** (recommended): join the public beta at
   [testflight.apple.com/join/3NYaY11c](https://testflight.apple.com/join/3NYaY11c).
@@ -246,24 +246,24 @@ app onto your device).
 ### Build
 
 ```sh
-git clone https://github.com/peetzweg/opendisplay.git
+git clone https://github.com/saulgabriel7/LinkUp.git
 cd opendisplay
 echo "DEVELOPMENT_TEAM=YOURTEAMID" > .env   # your Apple team ID, for signing
 ./generate.sh                               # runs xcodegen with your .env
-xcodebuild -project OpenSidecar.xcodeproj -scheme OpenSidecarMac \
+xcodebuild -project LinkUp.xcodeproj -scheme LinkUpMac \
   -configuration Debug -derivedDataPath build build
-xcodebuild -project OpenSidecar.xcodeproj -scheme OpenSidecariOS \
+xcodebuild -project LinkUp.xcodeproj -scheme LinkUpiOS \
   -configuration Debug -destination 'generic/platform=iOS' \
   -derivedDataPath build -allowProvisioningUpdates build
 ```
 
-(Or open `OpenSidecar.xcodeproj` in Xcode and hit Run on each target. Your
+(Or open `LinkUp.xcodeproj` in Xcode and hit Run on each target. Your
 team ID is shown at [developer.apple.com/account](https://developer.apple.com/account)
 under Membership, or just pick your team in Xcode's Signing pane.)
 
 ### Run (USB — recommended)
 
-1. Install + open **OpenDisplay** on the iPhone (it listens on port 9000).
+1. Install + open **LinkUp** on the iPhone (it listens on port 9000).
 2. On the Mac, run `./run.sh` (or just open the app) — it talks to macOS's
    built-in `usbmuxd` directly and auto-connects over the cable. No tunnel
    tools needed.
@@ -302,7 +302,7 @@ Both apps keep a local log of connection events. Nothing is uploaded anywhere;
 the logs only leave a device when you share them.
 
 - **Mac:** click **Logs** in the app panel. Finder opens with
-  `~/Library/Logs/OpenDisplay` selected.
+  `~/Library/Logs/LinkUp` selected.
 - **iPhone/iPad:** shake the device (or tap **Settings & Help** when idle), then
   open **Connection log**. Share hands the file to Mail, Messages or Files; copy
   puts the text on the clipboard for pasting straight into an issue.
@@ -313,32 +313,32 @@ decoder was failing. Attach both if you can.
 
 ## Roadmap
 
-Tracked as [roadmap issues](https://github.com/peetzweg/opendisplay/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap) — pick one up if you'd like to contribute!
+Tracked as [roadmap issues](https://github.com/saulgabriel7/LinkUp/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap) — pick one up if you'd like to contribute!
 
 **Connectivity & distribution**
-- [#16](https://github.com/peetzweg/opendisplay/issues/16) Encrypted WiFi transport with pairing code
+- [#16](https://github.com/saulgabriel7/LinkUp/issues/16) Encrypted WiFi transport with pairing code
 - [ ] App Store release of the iOS app + notarized Mac downloads
 
 **Input**
-- [#4](https://github.com/peetzweg/opendisplay/issues/4) Apple Pencil with pressure and tilt
-- [#5](https://github.com/peetzweg/opendisplay/issues/5) Right-click and multi-touch gestures
-- [#6](https://github.com/peetzweg/opendisplay/issues/6) Hardware keyboard passthrough
-- [#7](https://github.com/peetzweg/opendisplay/issues/7) On-screen modifier key sidebar
+- [#4](https://github.com/saulgabriel7/LinkUp/issues/4) Apple Pencil with pressure and tilt
+- [#5](https://github.com/saulgabriel7/LinkUp/issues/5) Right-click and multi-touch gestures
+- [#6](https://github.com/saulgabriel7/LinkUp/issues/6) Hardware keyboard passthrough
+- [#7](https://github.com/saulgabriel7/LinkUp/issues/7) On-screen modifier key sidebar
 
 **Display & media**
-- [#9](https://github.com/peetzweg/opendisplay/issues/9) Resolution & quality settings
-- [#10](https://github.com/peetzweg/opendisplay/issues/10) HEVC encoding
-- [#12](https://github.com/peetzweg/opendisplay/issues/12) Audio forwarding
+- [#9](https://github.com/saulgabriel7/LinkUp/issues/9) Resolution & quality settings
+- [#10](https://github.com/saulgabriel7/LinkUp/issues/10) HEVC encoding
+- [#12](https://github.com/saulgabriel7/LinkUp/issues/12) Audio forwarding
 
 **Experience**
-- [#11](https://github.com/peetzweg/opendisplay/issues/11) Menu bar app mode with auto-connect
-- [#13](https://github.com/peetzweg/opendisplay/issues/13) Battery & lifecycle awareness
+- [#11](https://github.com/saulgabriel7/LinkUp/issues/11) Menu bar app mode with auto-connect
+- [#13](https://github.com/saulgabriel7/LinkUp/issues/13) Battery & lifecycle awareness
 
 **Exploratory**
-- [#14](https://github.com/peetzweg/opendisplay/issues/14) Remote access beyond the local network
-- [#15](https://github.com/peetzweg/opendisplay/issues/15) Additional client platforms
+- [#14](https://github.com/saulgabriel7/LinkUp/issues/14) Remote access beyond the local network
+- [#15](https://github.com/saulgabriel7/LinkUp/issues/15) Additional client platforms
 
-Done: prebuilt releases, built-in USB connectivity (no helper tools), WiFi via Bonjour, portrait mode, touch + two-finger scroll, performance overlay, iPad support, multiple devices at once ([#8](https://github.com/peetzweg/opendisplay/issues/8) — every connected device becomes its own extended display), a Mac as the display ([#17](https://github.com/peetzweg/opendisplay/issues/17), WiFi or Thunderbolt/Ethernet cable).
+Done: prebuilt releases, built-in USB connectivity (no helper tools), WiFi via Bonjour, portrait mode, touch + two-finger scroll, performance overlay, iPad support, multiple devices at once ([#8](https://github.com/saulgabriel7/LinkUp/issues/8) — every connected device becomes its own extended display), a Mac as the display ([#17](https://github.com/saulgabriel7/LinkUp/issues/17), WiFi or Thunderbolt/Ethernet cable).
 
 ## Auto-update (macOS app)
 
@@ -349,7 +349,7 @@ our own infrastructure:
 - The app reads an **appcast** feed hosted on the landing-page site:
   `https://opendisplay.app/appcast.xml` (`SUFeedURL` in `project.yml`).
 - The release workflow (`.github/workflows/release.yml`, `build-mac` job)
-  runs Sparkle's `generate_appcast` against the notarized `OpenDisplay.dmg`,
+  runs Sparkle's `generate_appcast` against the notarized `LinkUp.dmg`,
   signs it with the EdDSA key, commits the result to `public/appcast.xml`,
   and dispatches the Pages deploy — so the published feed points download
   links at the GitHub Release assets.

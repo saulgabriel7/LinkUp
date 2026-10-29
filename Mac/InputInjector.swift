@@ -32,7 +32,7 @@ final class InputInjector {
     // open but their tracking session breaks, leaving zombie menu windows
     // composited on the display (visible in the stream, unclickable).
     private let source = CGEventSource(stateID: .hidSystemState)
-    // Synthetic OpenDisplay tablet — conspicuous in logs; not Wacom (0x056A) or
+    // Synthetic LinkUp tablet — conspicuous in logs; not Wacom (0x056A) or
     // typical small driver IDs (1, 2, …).
     private let tabletVendorID: Int64 = 0x0D15       // "ODIS"
     private let tabletProductID: Int64 = 0x0101

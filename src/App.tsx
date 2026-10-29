@@ -50,7 +50,7 @@ export default function App() {
   // Progressive enhancement: current release version + live star count.
   // Fails silent (offline / rate-limited) — the page works without it.
   useEffect(() => {
-    fetch("https://api.github.com/repos/peetzweg/opendisplay/releases/latest", {
+    fetch("https://api.github.com/repos/saulgabriel7/LinkUp/releases/latest", {
       headers: { Accept: "application/vnd.github+json" },
     })
       .then((r) => (r.ok ? r.json() : null))
@@ -59,7 +59,7 @@ export default function App() {
       })
       .catch(() => {})
 
-    fetch("https://api.github.com/repos/peetzweg/opendisplay", {
+    fetch("https://api.github.com/repos/saulgabriel7/LinkUp", {
       headers: { Accept: "application/vnd.github+json" },
     })
       .then((r) => (r.ok ? r.json() : null))
@@ -127,7 +127,7 @@ export default function App() {
               layout
               transition={{ type: "spring", damping: 22, stiffness: 340 }}
             >
-              OpenDisplay
+              LinkUp
             </motion.span>
           </a>
           <div className="links">
@@ -140,8 +140,8 @@ export default function App() {
             <a href="#contribute">Contribute</a>
             <a
               className="gh"
-              href="https://github.com/peetzweg/opendisplay"
-              title="Star OpenDisplay on GitHub"
+              href="https://github.com/saulgabriel7/LinkUp"
+              title="Star LinkUp on GitHub"
             >
               <svg className="gh-logo" viewBox="0 0 16 16" aria-hidden="true">
                 <path
@@ -164,7 +164,7 @@ export default function App() {
       <div className="nudge-scope">
       <section>
         <div className="wrap hero">
-          <img ref={heroLogoRef} className="hero-logo" src="logo.png" alt="OpenDisplay" width="160" height="160" />
+          <img ref={heroLogoRef} className="hero-logo" src="logo.png" alt="LinkUp" width="160" height="160" />
           <p className="eyebrow">Free &amp; open source</p>
           <h1>
             <span className="l1">
@@ -202,7 +202,7 @@ export default function App() {
       <section className="downloads-sec">
         <div className="wrap">
           <p className="needs-both">
-            OpenDisplay is <strong>two apps that work together</strong> — install both to get going.
+            LinkUp is <strong>two apps that work together</strong> — install both to get going.
           </p>
           <div className="downloads">
             {/* Step 1 is whichever platform you're reading this on — on an
@@ -217,22 +217,22 @@ export default function App() {
                   <p className="dl-sub">The sender — captures a virtual display and streams it.</p>
                   <a
                     className="btn primary"
-                    href="https://github.com/peetzweg/opendisplay/releases/latest/download/OpenDisplay.dmg"
+                    href="https://github.com/saulgabriel7/LinkUp/releases/latest/download/LinkUp.dmg"
                   >
                     Download for Mac
                   </a>
                   <p className="note">
                     Signed &amp; notarized — opens normally on macOS&nbsp;14+. Prefer to compile it yourself?{" "}
-                    <a href="https://github.com/peetzweg/opendisplay#quick-start">Build from source ↗</a>
+                    <a href="https://github.com/saulgabriel7/LinkUp#quick-start">Build from source ↗</a>
                   </p>
                   <p className="note">
                     Looking for an older version?{" "}
-                    <a href="https://github.com/peetzweg/opendisplay/releases">Browse all releases ↗</a>
+                    <a href="https://github.com/saulgabriel7/LinkUp/releases">Browse all releases ↗</a>
                   </p>
                   <p className="note">
                     Got a spare <em>Mac</em> to use as the display? Install{" "}
-                    <a href="https://github.com/peetzweg/opendisplay/releases/latest/download/OpenDisplayReceiver.dmg">
-                      OpenDisplay Receiver
+                    <a href="https://github.com/saulgabriel7/LinkUp/releases/latest/download/LinkUpReceiver.dmg">
+                      LinkUp Receiver
                     </a>{" "}
                     on it instead of the iOS app — runs on macOS&nbsp;12+, so older Macs qualify.
                   </p>
@@ -268,7 +268,7 @@ export default function App() {
                     </a>
                     ,<br />
                     or{" "}
-                    <a href="https://github.com/peetzweg/opendisplay#quick-start">
+                    <a href="https://github.com/saulgabriel7/LinkUp#quick-start">
                       compile it from source ↗
                     </a>
                     .
@@ -286,7 +286,7 @@ export default function App() {
           <p className="eyebrow">Demo</p>
           <h2>See it in action.</h2>
           <p className="sub">
-            Using OpenDisplay in the wild?{" "}
+            Using LinkUp in the wild?{" "}
             <a href="https://x.com/peetzweg">Tag @peetzweg on X</a> and your setup might
             end up here.
           </p>
@@ -299,10 +299,10 @@ export default function App() {
         <div className="wrap sec support">
           <p className="eyebrow">Support the project</p>
           <img className="kofi-logo" src="kofi-logo.png" alt="Ko-fi" width="200" height="61" />
-          <h2>If OpenDisplay saved you a monitor, consider buying me a coffee.</h2>
+          <h2>If LinkUp saved you a monitor, consider buying me a coffee.</h2>
           <div className="support-note">
             <p>
-              OpenDisplay is a one-person labour of love, built and maintained by me,
+              LinkUp is a one-person labour of love, built and maintained by me,
               Philip. It's not a company. It's just me.
             </p>
             <p>
@@ -312,7 +312,7 @@ export default function App() {
               for the domain. On top of that go a lot of unpaid evenings and weekends.
             </p>
             <p>
-              Supporting me on Ko-fi keeps OpenDisplay well maintained and free for
+              Supporting me on Ko-fi keeps LinkUp well maintained and free for
               everyone, including the people who can't afford to chip in. My goal is to
               make this the greatest display companion app there is for iPad.
             </p>
@@ -333,7 +333,7 @@ export default function App() {
           <p className="eyebrow">Features</p>
           <h2>A true extended display, the way it should be.</h2>
           <div className="fgrid">
-            <div className="fcell"><span className="n">001</span><h3>No account, ever</h3><p>No sign-up, no email, no login. And unlike Apple Sidecar — which only works between devices on the <em>same</em> Apple ID — OpenDisplay pairs across different Apple IDs, so you can use a partner's or friend's iPad. Download both apps and go.</p></div>
+            <div className="fcell"><span className="n">001</span><h3>No account, ever</h3><p>No sign-up, no email, no login. And unlike Apple Sidecar — which only works between devices on the <em>same</em> Apple ID — LinkUp pairs across different Apple IDs, so you can use a partner's or friend's iPad. Download both apps and go.</p></div>
             <div className="fcell"><span className="n">002</span><h3>Low-latency pipeline</h3><p>Up to 60 FPS over USB. Hardware H.264 (VideoToolbox real-time mode), TCP_NODELAY, and frame-dropping backpressure with instant keyframe recovery keep it responsive.</p></div>
             <div className="fcell"><span className="n">003</span><h3>Two, even three screens</h3><p>You're not limited to one device. Run several iPads and iPhones at once, each as its own extended display — up to three has been tested, and you can freely mix iPads and iPhones. Arrange them all in System Settings like real monitors.</p></div>
             <div className="fcell"><span className="n">004</span><h3>Retina sharp</h3><p>Native Retina resolution — the virtual display matches your device panel pixel-for-pixel at HiDPI (@2x), so text looks exactly like it should.</p></div>
@@ -342,14 +342,14 @@ export default function App() {
             <div className="fcell"><span className="n">007</span><h3>Touch &amp; scroll</h3><p>Tap to click, drag to drag, two-finger pan to scroll. A tiny touchscreen for your Mac.</p></div>
             <div className="fcell"><span className="n">008</span><h3>Portrait mode</h3><p>Rotate the phone and the virtual display rebuilds as a vertical monitor — perfect for chat, logs, or docs.</p></div>
             <div className="fcell"><span className="n">009</span><h3>Private by design</h3><p>One direct TCP connection between your devices. No servers, no accounts, no telemetry. Read the code.</p></div>
-            <div className="fcell"><span className="n">010</span><h3>A spare Mac as a display</h3><p>Install the small <em>OpenDisplay Receiver</em> app (macOS 12+) on an old Mac and another Mac extends onto it — a real Retina extended display, over WiFi or a Thunderbolt or Ethernet cable. An old MacBook becomes a second monitor.</p></div>
+            <div className="fcell"><span className="n">010</span><h3>A spare Mac as a display</h3><p>Install the small <em>LinkUp Receiver</em> app (macOS 12+) on an old Mac and another Mac extends onto it — a real Retina extended display, over WiFi or a Thunderbolt or Ethernet cable. An old MacBook becomes a second monitor.</p></div>
           </div>
         </div>
       </section>
 
       <section id="why">
         <div className="wrap sec">
-          <p className="eyebrow">Why OpenDisplay</p>
+          <p className="eyebrow">Why LinkUp</p>
           <h2>The device you already own becomes a real additional display.</h2>
           <div className="compare">
             <div className="row">
@@ -366,7 +366,7 @@ export default function App() {
               <p>Great latency, but you're buying a hardware dongle.</p>
             </div>
             <div className="row highlight">
-              <div className="name">OpenDisplay</div>
+              <div className="name">LinkUp</div>
               <p>Free, open source, auditable. The device you already own becomes a real additional
               display. If you were about to build your own — contribute here instead.</p>
             </div>
@@ -376,7 +376,7 @@ export default function App() {
           <div className="tbl-scroll">
             <table>
               <thead>
-                <tr><th></th><th className="os">OpenDisplay</th><th>Apple Sidecar</th><th>Duet</th><th>Luna</th></tr>
+                <tr><th></th><th className="os">LinkUp</th><th>Apple Sidecar</th><th>Duet</th><th>Luna</th></tr>
               </thead>
               <tbody>
                 <tr><td>Price</td><td className="mark-yes os">Free &amp; open source</td><td>Free</td><td className="mark-no">Subscription</td><td className="mark-no">$$$ + dongle</td></tr>
@@ -437,7 +437,7 @@ export default function App() {
             </details>
             <details>
               <summary>Can another Mac be the display?</summary>
-              <p>Yes. Install <em>OpenDisplay Receiver</em>, a separate small app from the same release, on
+              <p>Yes. Install <em>LinkUp Receiver</em>, a separate small app from the same release, on
               the spare Mac. It needs only macOS 12 Monterey or newer (the sending Mac needs 14), so Macs
               from around 2015 onward qualify. It appears on the sending Mac like a phone would and
               becomes a real extended Retina display. WiFi works out of the box. For a cable, use a
@@ -456,8 +456,8 @@ export default function App() {
             </details>
             <details>
               <summary>What's the license? Can I fork it or use it commercially?</summary>
-              <p>OpenDisplay is licensed under{" "}
-              <a href="https://github.com/peetzweg/opendisplay/blob/main/LICENSE">GPL-3.0</a>. You can
+              <p>LinkUp is licensed under{" "}
+              <a href="https://github.com/saulgabriel7/LinkUp/blob/main/LICENSE">GPL-3.0</a>. You can
               use, study, and adapt it freely — including commercially. If you distribute a modified
               version, it must remain open source under the same license with the original attribution
               intact, so improvements flow back to everyone instead of into closed forks. (Releases up
@@ -506,9 +506,9 @@ export default function App() {
           </div>
           <p className="compat-note">
             These are fan-made projects, not official builds. They aren't affiliated with
-            OpenDisplay and aren't maintained, reviewed or supported by us, so please report issues
+            LinkUp and aren't maintained, reviewed or supported by us, so please report issues
             with them in their own repositories. Listing them here also says nothing about our own
-            plans: an official OpenDisplay app may still ship for any of these platforms later.
+            plans: an official LinkUp app may still ship for any of these platforms later.
           </p>
         </div>
       </section>
@@ -518,20 +518,20 @@ export default function App() {
           <p className="eyebrow">Contribute</p>
           <h2>Open source, and built in the open.</h2>
           <p style={{ color: "var(--muted)", maxWidth: "72ch", marginTop: "8px" }}>
-            OpenDisplay is GPL-3.0 and developed entirely on GitHub — the whole stack, from Mac
+            LinkUp is GPL-3.0 and developed entirely on GitHub — the whole stack, from Mac
             capture and H.264 encoding to the iOS receiver, is yours to read, build, and improve.
             Bug reports, feature ideas, and pull requests are all welcome. Build-and-run instructions
             live in the README.
           </p>
           <div className="btn-row">
-            <a className="btn primary" href="https://github.com/peetzweg/opendisplay">View on GitHub ↗</a>
-            <a className="btn ghost" href="https://github.com/peetzweg/opendisplay/issues">Open an issue ↗</a>
+            <a className="btn primary" href="https://github.com/saulgabriel7/LinkUp">View on GitHub ↗</a>
+            <a className="btn ghost" href="https://github.com/saulgabriel7/LinkUp/issues">Open an issue ↗</a>
           </div>
           <p className="sub">
             New here? Start with the{" "}
-            <a href="https://github.com/peetzweg/opendisplay#quick-start">README quick-start</a>{" "}
+            <a href="https://github.com/saulgabriel7/LinkUp#quick-start">README quick-start</a>{" "}
             to build both apps, or browse the{" "}
-            <a href="https://github.com/peetzweg/opendisplay/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first issues</a>.
+            <a href="https://github.com/saulgabriel7/LinkUp/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good first issues</a>.
           </p>
         </div>
       </section>
@@ -539,14 +539,14 @@ export default function App() {
       <footer>
         <div className="wrap">
           <div className="links">
-            <a href="https://github.com/peetzweg/opendisplay">GitHub</a>
-            <a href="https://github.com/peetzweg/opendisplay/releases/latest">Releases</a>
-            <a href="https://github.com/peetzweg/opendisplay/issues">Issues</a>
+            <a href="https://github.com/saulgabriel7/LinkUp">GitHub</a>
+            <a href="https://github.com/saulgabriel7/LinkUp/releases/latest">Releases</a>
+            <a href="https://github.com/saulgabriel7/LinkUp/issues">Issues</a>
             <a href="https://ko-fi.com/peetzweg">Support / Ko-fi</a>
             <a href="privacy.html">Privacy</a>
-            <a href="https://github.com/peetzweg/opendisplay/blob/main/LICENSE">GPL-3.0 License</a>
+            <a href="https://github.com/saulgabriel7/LinkUp/blob/main/LICENSE">GPL-3.0 License</a>
           </div>
-          <p className="fine">OpenDisplay — use your iPhone or iPad as a second monitor for your Mac. Free forever.</p>
+          <p className="fine">LinkUp — use your iPhone or iPad as a second monitor for your Mac. Free forever.</p>
         </div>
       </footer>
     </>

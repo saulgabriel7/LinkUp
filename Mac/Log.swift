@@ -14,20 +14,20 @@ import Foundation
 /// the *oldest* bytes and discard everything recent, which is backwards: when a
 /// report comes in, the useful window is what happened just before the problem.
 enum Log {
-    /// `~/Library/Logs/OpenDisplay`. The platform convention, and deliberately
+    /// `~/Library/Logs/LinkUp`. The platform convention, and deliberately
     /// not /tmp: macOS clears /tmp on reboot, and rebooting is the first thing
     /// someone tries before filing a bug, so a log there is gone exactly when
     /// it's wanted. Living here also means Console.app lists it under Log
     /// Reports without us doing anything.
     ///
-    /// The folder is named after the app: the sender logs to `OpenDisplay`,
+    /// The folder is named after the app: the sender logs to `LinkUp`,
     /// the receiver app (a separate bundle sharing this file) to
-    /// `OpenDisplay Receiver`, so running both on one Mac keeps two logs.
+    /// `LinkUp Receiver`, so running both on one Mac keeps two logs.
     private static let directory: URL = {
         let library = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first
             ?? URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Library")
         let product = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
-        let folder = product.hasPrefix("OpenDisplay") ? product : "OpenDisplay"
+        let folder = product.hasPrefix("LinkUp") ? product : "LinkUp"
         return library.appendingPathComponent("Logs/\(folder)", isDirectory: true)
     }()
 
@@ -41,7 +41,7 @@ enum Log {
     private static let queue = DispatchQueue(label: "log")
     private static let writer = RotatingLogFile(
         directory: directory,
-        baseName: "opendisplay",
+        baseName: "linkup",
         maxBytes: maxBytes
     )
     private static let formatter: DateFormatter = {
@@ -254,6 +254,6 @@ final class RotatingLogFile {
     }
 
     private static func reportToStandardError(_ message: String) {
-        try? FileHandle.standardError.write(contentsOf: Data("OpenDisplay log: \(message)\n".utf8))
+        try? FileHandle.standardError.write(contentsOf: Data("LinkUp log: \(message)\n".utf8))
     }
 }

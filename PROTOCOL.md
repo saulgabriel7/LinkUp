@@ -1,10 +1,10 @@
-# OpenDisplay Wire Protocol
+# LinkUp Wire Protocol
 
 **Protocol version (`pv`): 3** &nbsp;|&nbsp; Status: **normative** for `pv <= 3`
 
-This document specifies the wire protocol spoken between an OpenDisplay
+This document specifies the wire protocol spoken between an LinkUp
 *sender* (the machine whose desktop is extended, the Mac app today) and an
-OpenDisplay *receiver* (the device that shows the extra display, the
+LinkUp *receiver* (the device that shows the extra display, the
 iPhone/iPad app today). It describes everything that crosses the socket and
 nothing that happens on either side of it: display creation, capture,
 encoding, decoding, rendering, and input injection are implementation
@@ -21,7 +21,7 @@ Two companion documents:
 
 ### Naming
 
-The protocol is named the **OpenDisplay protocol** after the product. For
+The protocol is named the **LinkUp protocol** after the product. For
 historical reasons the Bonjour service type is `_opensidecar._tcp` (the
 project's original name) and it stays that way: renaming it would break
 every deployed peer for zero functional gain. Do not read anything into the

@@ -7,9 +7,9 @@ cd "$(dirname "$0")"
 
 APP=build/Build/Products/Debug/LinkUp.app
 if [[ ! -d $APP ]]; then
-  echo "Mac app not built — run: ./tools/bin/xcodegen/bin/xcodegen generate && xcodebuild -project OpenSidecar.xcodeproj -scheme OpenSidecarMac -configuration Debug -derivedDataPath build build"
+  echo "Mac app not built — run: ./tools/bin/xcodegen/bin/xcodegen generate && xcodebuild -project LinkUp.xcodeproj -scheme LinkUpMac -configuration Debug -derivedDataPath build build"
   exit 1
 fi
 
 open "$APP"
-echo "LinkUp running — logs at ~/Library/Logs/LinkUp/opendisplay.log."
+echo "LinkUp running — logs at ~/Library/Logs/LinkUp/linkup.log."

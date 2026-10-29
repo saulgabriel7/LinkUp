@@ -1,10 +1,10 @@
-name: OpenSidecar
+name: LinkUp
 options:
   createIntermediateGroups: true
 # Swift Package Manager dependencies. Sparkle powers the macOS app's
 # out-of-store auto-update (issue #52); it's an embedded open-source
-# framework + CLI tooling, not a hosted service — the appcast feed and the
-# DMG are served from infrastructure we already own (GitHub Pages + Releases).
+# framework + CLI tooling, not a hosted service. Auto-update is currently
+# disabled (no appcast feed or EdDSA key yet).
 packages:
   Sparkle:
     url: https://github.com/sparkle-project/Sparkle
@@ -12,21 +12,21 @@ packages:
     # support SPM. `from:` allows compatible 2.x updates.
     from: "2.6.0"
 schemes:
-  OpenSidecarMac:
+  LinkUpMac:
     build:
       targets:
-        OpenSidecarMac: all
+        LinkUpMac: all
     test:
       targets:
-        - OpenSidecarMacTests
-  OpenSidecariOS:
+        - LinkUpMacTests
+  LinkUpiOS:
     build:
       targets:
-        OpenSidecariOS: all
-  OpenSidecarMacReceiver:
+        LinkUpiOS: all
+  LinkUpMacReceiver:
     build:
       targets:
-        OpenSidecarMacReceiver: all
+        LinkUpMacReceiver: all
 # DEVELOPMENT_TEAM comes from the environment (see generate.sh / .env) so no
 # personal team ID lives in the repo. Unset = unsigned, fine for CI.
 settings:
@@ -40,7 +40,7 @@ settings:
     MARKETING_VERSION: "0.0.0"
     CURRENT_PROJECT_VERSION: "1"
 targets:
-  OpenSidecarMac:
+  LinkUpMac:
     type: application
     platform: macOS
     deploymentTarget: "14.0"
@@ -65,12 +65,12 @@ targets:
         # SUEnableAutomaticChecks here and start the updater in the app.
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac
+        PRODUCT_BUNDLE_IDENTIFIER: com.saulgabriel7.linkup.mac
         PRODUCT_NAME: LinkUp
         BUNDLE_DISPLAY_NAME: LinkUp
-        SWIFT_OBJC_BRIDGING_HEADER: Mac/OpenSidecarMac-Bridging-Header.h
+        SWIFT_OBJC_BRIDGING_HEADER: Mac/LinkUpMac-Bridging-Header.h
         ENABLE_HARDENED_RUNTIME: YES
-        CODE_SIGN_ENTITLEMENTS: Mac/OpenSidecarMac.entitlements
+        CODE_SIGN_ENTITLEMENTS: Mac/LinkUpMac.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
       configs:
         # Local dev builds get their own identity: TCC keys permission
@@ -80,14 +80,14 @@ targets:
         # The distinct display name keeps the two telling apart in the
         # System Settings permission lists.
         Debug:
-          PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac.debug
+          PRODUCT_BUNDLE_IDENTIFIER: com.saulgabriel7.linkup.mac.debug
           BUNDLE_DISPLAY_NAME: LinkUp Dev
   # The standalone receiver app (issues #82/#17/#241): a spare Mac as a
   # display. Deliberately its own bundle with a much lower deployment target
   # than the sender, which is pinned to 14 by its capture stack. Everything
   # under Shared/ and the files listed from Mac/ must therefore compile at
   # this floor; keep this the oldest macOS the receiver path supports.
-  OpenSidecarMacReceiver:
+  LinkUpMacReceiver:
     type: application
     platform: macOS
     deploymentTarget: "12.0"
@@ -106,25 +106,25 @@ targets:
         CFBundleDisplayName: $(BUNDLE_DISPLAY_NAME)
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
-        NSLocalNetworkUsageDescription: OpenDisplay Receiver advertises itself on the local network so another Mac can connect and use this Mac as a display.
+        NSLocalNetworkUsageDescription: LinkUp Receiver advertises itself on the local network so another Mac can connect and use this Mac as a display.
         NSBonjourServices: ["_opensidecar._tcp"]
         LSApplicationCategoryType: public.app-category.utilities
         # Sparkle auto-update disabled (see the sender target above).
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac.receiver
-        PRODUCT_NAME: OpenDisplay Receiver
-        BUNDLE_DISPLAY_NAME: OpenDisplay Receiver
+        PRODUCT_BUNDLE_IDENTIFIER: com.saulgabriel7.linkup.mac.receiver
+        PRODUCT_NAME: LinkUp Receiver
+        BUNDLE_DISPLAY_NAME: LinkUp Receiver
         # Log.swift's file locking helpers live in the C bridging header.
-        SWIFT_OBJC_BRIDGING_HEADER: Mac/OpenSidecarMac-Bridging-Header.h
+        SWIFT_OBJC_BRIDGING_HEADER: Mac/LinkUpMac-Bridging-Header.h
         ENABLE_HARDENED_RUNTIME: YES
-        CODE_SIGN_ENTITLEMENTS: MacReceiver/OpenSidecarMacReceiver.entitlements
+        CODE_SIGN_ENTITLEMENTS: MacReceiver/LinkUpMacReceiver.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
       configs:
         Debug:
-          PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.mac.receiver.debug
-          BUNDLE_DISPLAY_NAME: OpenDisplay Receiver Dev
-  OpenSidecarMacTests:
+          PRODUCT_BUNDLE_IDENTIFIER: com.saulgabriel7.linkup.mac.receiver.debug
+          BUNDLE_DISPLAY_NAME: LinkUp Receiver Dev
+  LinkUpMacTests:
     type: bundle.unit-test
     platform: macOS
     deploymentTarget: "14.0"
@@ -143,8 +143,8 @@ targets:
         # Without this the bundle has no Info.plist and code signing refuses to
         # run, which fails the build before a single test executes.
         GENERATE_INFOPLIST_FILE: "YES"
-        SWIFT_OBJC_BRIDGING_HEADER: Mac/OpenSidecarMac-Bridging-Header.h
-  OpenSidecariOS:
+        SWIFT_OBJC_BRIDGING_HEADER: Mac/LinkUpMac-Bridging-Header.h
+  LinkUpiOS:
     type: application
     platform: iOS
     deploymentTarget: "16.4"
@@ -154,13 +154,13 @@ targets:
     info:
       path: iOS/Info.plist
       properties:
-        CFBundleDisplayName: OpenDisplay
+        CFBundleDisplayName: LinkUp
         CFBundleIconName: AppIcon
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         UILaunchScreen: {}
         UIRequiresFullScreen: true
-        NSLocalNetworkUsageDescription: OpenDisplay advertises itself on the local network so your Mac can connect over WiFi.
+        NSLocalNetworkUsageDescription: LinkUp advertises itself on the local network so your Mac can connect over WiFi.
         NSBonjourServices: ["_opensidecar._tcp"]
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -169,6 +169,6 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.peetzweg.opensidecar.ios
+        PRODUCT_BUNDLE_IDENTIFIER: com.saulgabriel7.linkup.ios
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

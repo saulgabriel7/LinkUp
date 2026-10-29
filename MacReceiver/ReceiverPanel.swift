@@ -30,7 +30,7 @@ struct ReceiverSections: View {
         }
 
         Section("How to connect") {
-            Label("Install and open OpenDisplay on the Mac whose screen you want to extend.",
+            Label("Install and open LinkUp on the Mac whose screen you want to extend.",
                   systemImage: "macbook.and.macbook")
             Label("With both Macs on the same network, this Mac appears in its Devices list — click Connect there.",
                   systemImage: "wifi")

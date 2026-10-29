@@ -18,7 +18,7 @@ enum AppPresentation: String, CaseIterable {
 }
 
 @main
-struct OpenSidecarMacApp: App {
+struct LinkUpMacApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var controller = SenderController.shared
 

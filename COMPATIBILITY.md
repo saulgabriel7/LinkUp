@@ -1,10 +1,10 @@
 # Mac ↔ iOS compatibility
 
-How the two OpenDisplay apps stay compatible when they update on **different
+How the two LinkUp apps stay compatible when they update on **different
 schedules**, who is responsible for detecting a mismatch, and what pairings we
 support. This is the spec for issues
-[#132](https://github.com/peetzweg/opendisplay/issues/132) (release
-orchestration), [#135](https://github.com/peetzweg/opendisplay/issues/135)
+[#132](https://github.com/saulgabriel7/LinkUp/issues/132) (release
+orchestration), [#135](https://github.com/saulgabriel7/LinkUp/issues/135)
 (force update), and the wire-protocol handshake.
 
 The wire protocol itself — framing, discovery, the video format, and the
@@ -107,7 +107,7 @@ direction and owns the offline/never-connect case.
 Connection-independent. On launch the iPhone fetches a small static file we host
 next to the Sparkle appcast:
 
-- **URL:** `https://opendisplay.app/ios-version.json` (source of truth:
+- **URL:** `https://saulgabriel7.github.io/LinkUp/ios-version.json` (source of truth:
   `public/ios-version.json`; Vite copies it into `docs/` and Pages serves it).
 - **Shape:**
   ```json

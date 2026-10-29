@@ -27,14 +27,8 @@
 		<string>_opensidecar._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>OpenDisplay Receiver advertises itself on the local network so another Mac can connect and use this Mac as a display.</string>
+	<string>LinkUp Receiver advertises itself on the local network so another Mac can connect and use this Mac as a display.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://opendisplay.app/appcast-receiver.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>rYxlIePmwzi2bRo/qIsuY2TqTnQ34li2gQhJpGBiumw=</string>
 </dict>
 </plist>
